@@ -6,10 +6,12 @@ I built it using ARC (and for the demo portion storyboards) strictly for conveni
 
 Features
 ---------
-Convenience methods to extend UIViewController and UINavigationController to easily present/dismiss a view controller modally or push it onto/pop it off of a navigation stack
-Convenience methods to transition between any 2 UIViewControllers or UIViews
-Fully customizable to adjust style, duration, timing curves, and completion action
-Blocks-based: many methods include a completion block parameter following the pattern of block-based animations introduced in iOS 4.
+* Convenience methods to extend UIViewController to present/dismiss a view controller modally using fold transitions
+* Convenience methods to extend UINavigationController to push/pop view controllers onto the navigation stack using fold transitions
+* Convenience methods to transition between any 2 UIViewControllers or UIViews
+* 3 Custom UIStoryboardSegue subclasses to easily add folding transitions via Interface Builder in your storyboards
+* Fully customizable to adjust style, duration, timing curves, and completion action
+* Blocks-based: many methods include a completion block parameter following the pattern of block-based animations introduced in iOS 4.
 
 Styles
 ---------
@@ -17,3 +19,21 @@ Currently there are 3 different style bits that can be combined for 8 different 
 * Direction: Fold vs. Unfold
 * Mode: Normal vs. Cubic
 * Orientation: Vertical vs. Horizontal
+
+How To Use
+---------
+See the "MPFoldTransition.h" header file for methods and use the demo project as a reference.  The Segue classes (under directory of the same name) are optional, only if you want to include storyboard support.  Otherwise you just need the classes under the bottommost MPFoldTransition directory.
+
+Licensing
+---------
+Read Source Code License.rtf, but the gist is:
+* Anyone can use it for any type of project
+* All I ask for is attribution somewhere
+
+Best,
+Mark Pospesel
+
+Website: http://markpospesel.com/  
+Contact: http://markpospesel.com/about  
+Twitter: http://twitter.com/mpospese  
+Hire Me: http://crazymilksoftware.com/  
