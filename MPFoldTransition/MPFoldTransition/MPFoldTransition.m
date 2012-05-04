@@ -261,13 +261,13 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// Shadow layers to add shadowing to the 2 folding panels
 	upperFoldShadow = [CALayer layer];
 	[upperFold addSublayer:upperFoldShadow];
-	upperFoldShadow.frame = upperFold.bounds;
+	upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
 	upperFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
 	upperFoldShadow.opacity = 0;
 	
 	lowerFoldShadow = [CALayer layer];
 	[lowerFold addSublayer:lowerFoldShadow];
-	lowerFoldShadow.frame = lowerFold.bounds;
+	lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
 	lowerFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
 	lowerFoldShadow.opacity = 0;
 	
@@ -276,13 +276,13 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		// add shadow layers to top and bottom sleeves as well
 		topSleeveShadow = [CALayer layer];
 		[topSleeve addSublayer:topSleeveShadow];
-		topSleeveShadow.frame = topSleeve.bounds;
+		topSleeveShadow.frame = CGRectInset(topSleeve.bounds, slideInsets.left, slideInsets.top);
 		topSleeveShadow.backgroundColor = [UIColor blackColor].CGColor;
 		topSleeveShadow.opacity = 0;
 		
 		bottomSleeveShadow = [CALayer layer];
 		[bottomSleeve addSublayer:bottomSleeveShadow];
-		bottomSleeveShadow.frame = bottomSleeve.bounds;
+		bottomSleeveShadow.frame = CGRectInset(bottomSleeve.bounds, slideInsets.left, slideInsets.top);
 		bottomSleeveShadow.backgroundColor = [UIColor blackColor].CGColor;
 		bottomSleeveShadow.opacity = 0;
 	}
