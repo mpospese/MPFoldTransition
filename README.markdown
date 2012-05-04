@@ -30,7 +30,7 @@ Read Source Code License.rtf, but the gist is:
 * Anyone can use it for any type of project
 * All I ask for is attribution somewhere
 
-Best,
+Best,  
 Mark Pospesel
 
 Website: http://markpospesel.com/  
