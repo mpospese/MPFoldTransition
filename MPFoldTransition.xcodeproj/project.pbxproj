@@ -1,0 +1,409 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D63A174154FEE0D00B310CF /* StyleTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A173154FEE0D00B310CF /* StyleTable.m */; };
+		4DB9BF1E1553E36200718F74 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1A1553E36200718F74 /* Icon-72.png */; };
+		4DB9BF1F1553E36200718F74 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1B1553E36200718F74 /* Icon-72@2x.png */; };
+		4DB9BF201553E36200718F74 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1C1553E36200718F74 /* Icon.png */; };
+		4DB9BF211553E36200718F74 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1D1553E36200718F74 /* Icon@2x.png */; };
+		4DBDFA0915415F0A003AD415 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBDFA0815415F0A003AD415 /* UIKit.framework */; };
+		4DBDFA0B15415F0A003AD415 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBDFA0A15415F0A003AD415 /* Foundation.framework */; };
+		4DBDFA0D15415F0A003AD415 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBDFA0C15415F0A003AD415 /* CoreGraphics.framework */; };
+		4DBDFA1315415F0A003AD415 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBDFA1115415F0A003AD415 /* InfoPlist.strings */; };
+		4DBDFA1515415F0A003AD415 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA1415415F0A003AD415 /* main.m */; };
+		4DBDFA1915415F0A003AD415 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA1815415F0A003AD415 /* AppDelegate.m */; };
+		4DBDFA1C15415F0A003AD415 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBDFA1A15415F0A003AD415 /* MainStoryboard_iPhone.storyboard */; };
+		4DBDFA1F15415F0A003AD415 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBDFA1D15415F0A003AD415 /* MainStoryboard_iPad.storyboard */; };
+		4DBDFA2215415F0A003AD415 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA2115415F0A003AD415 /* ViewController.m */; };
+		4DBDFA2E15416013003AD415 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBDFA2D15416013003AD415 /* QuartzCore.framework */; };
+		4DBDFA3E15416BDA003AD415 /* MPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3315416BAD003AD415 /* MPAnimation.m */; };
+		4DBDFA3F15416BDA003AD415 /* MPFoldModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3515416BAD003AD415 /* MPFoldModalSegue.m */; };
+		4DBDFA4015416BDA003AD415 /* MPFoldNavPopSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3715416BAD003AD415 /* MPFoldNavPopSegue.m */; };
+		4DBDFA4115416BDA003AD415 /* MPFoldNavPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3915416BAD003AD415 /* MPFoldNavPushSegue.m */; };
+		4DBDFA4215416BDA003AD415 /* MPFoldSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3B15416BAD003AD415 /* MPFoldSegue.m */; };
+		4DBDFA4315416BDA003AD415 /* MPFoldTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */; };
+		4DFA2F0F154FF49D004AF678 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A177154FEE8500B310CF /* AboutViewController.m */; };
+		4DFA2F11154FF4A1004AF678 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A179154FEE8600B310CF /* DetailsViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4D63A172154FEE0D00B310CF /* StyleTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleTable.h; path = MPFoldTransition/StyleTable.h; sourceTree = "<group>"; };
+		4D63A173154FEE0D00B310CF /* StyleTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleTable.m; path = MPFoldTransition/StyleTable.m; sourceTree = "<group>"; };
+		4D63A176154FEE8500B310CF /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = MPFoldTransition/AboutViewController.h; sourceTree = "<group>"; };
+		4D63A177154FEE8500B310CF /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = MPFoldTransition/AboutViewController.m; sourceTree = "<group>"; };
+		4D63A178154FEE8600B310CF /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DetailsViewController.h; path = MPFoldTransition/DetailsViewController.h; sourceTree = "<group>"; };
+		4D63A179154FEE8600B310CF /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DetailsViewController.m; path = MPFoldTransition/DetailsViewController.m; sourceTree = "<group>"; };
+		4DB9BF1A1553E36200718F74 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "MPFoldTransition/Icon-72.png"; sourceTree = "<group>"; };
+		4DB9BF1B1553E36200718F74 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "MPFoldTransition/Icon-72@2x.png"; sourceTree = "<group>"; };
+		4DB9BF1C1553E36200718F74 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = MPFoldTransition/Icon.png; sourceTree = "<group>"; };
+		4DB9BF1D1553E36200718F74 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "MPFoldTransition/Icon@2x.png"; sourceTree = "<group>"; };
+		4DB9BF221553E3A300718F74 /* Source Code License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Source Code License.rtf"; sourceTree = "<group>"; };
+		4DB9BF241553EA8A00718F74 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
+		4DB9BF251553EA8A00718F74 /* TODO.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO.markdown; sourceTree = "<group>"; };
+		4DBDFA0415415F0A003AD415 /* MPFoldTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPFoldTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DBDFA0815415F0A003AD415 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4DBDFA0A15415F0A003AD415 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4DBDFA0C15415F0A003AD415 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4DBDFA1015415F0A003AD415 /* MPFoldTransition-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MPFoldTransition-Info.plist"; sourceTree = "<group>"; };
+		4DBDFA1215415F0A003AD415 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4DBDFA1415415F0A003AD415 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4DBDFA1615415F0A003AD415 /* MPFoldTransition-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MPFoldTransition-Prefix.pch"; sourceTree = "<group>"; };
+		4DBDFA1715415F0A003AD415 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MPFoldTransition/AppDelegate.h; sourceTree = "<group>"; };
+		4DBDFA1815415F0A003AD415 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MPFoldTransition/AppDelegate.m; sourceTree = "<group>"; };
+		4DBDFA1B15415F0A003AD415 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		4DBDFA1E15415F0A003AD415 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		4DBDFA2015415F0A003AD415 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = MPFoldTransition/ViewController.h; sourceTree = "<group>"; };
+		4DBDFA2115415F0A003AD415 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = MPFoldTransition/ViewController.m; sourceTree = "<group>"; };
+		4DBDFA2D15416013003AD415 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4DBDFA3215416BAD003AD415 /* MPAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPAnimation.h; sourceTree = "<group>"; };
+		4DBDFA3315416BAD003AD415 /* MPAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPAnimation.m; sourceTree = "<group>"; };
+		4DBDFA3415416BAD003AD415 /* MPFoldModalSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldModalSegue.h; sourceTree = "<group>"; };
+		4DBDFA3515416BAD003AD415 /* MPFoldModalSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldModalSegue.m; sourceTree = "<group>"; };
+		4DBDFA3615416BAD003AD415 /* MPFoldNavPopSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldNavPopSegue.h; sourceTree = "<group>"; };
+		4DBDFA3715416BAD003AD415 /* MPFoldNavPopSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldNavPopSegue.m; sourceTree = "<group>"; };
+		4DBDFA3815416BAD003AD415 /* MPFoldNavPushSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldNavPushSegue.h; sourceTree = "<group>"; };
+		4DBDFA3915416BAD003AD415 /* MPFoldNavPushSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldNavPushSegue.m; sourceTree = "<group>"; };
+		4DBDFA3A15416BAD003AD415 /* MPFoldSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldSegue.h; sourceTree = "<group>"; };
+		4DBDFA3B15416BAD003AD415 /* MPFoldSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldSegue.m; sourceTree = "<group>"; };
+		4DBDFA3C15416BAD003AD415 /* MPFoldTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldTransition.h; sourceTree = "<group>"; };
+		4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldTransition.m; sourceTree = "<group>"; };
+		4DDCC8E2154960C500489938 /* MPFoldEnumerations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldEnumerations.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4DBDFA0115415F0A003AD415 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DBDFA2E15416013003AD415 /* QuartzCore.framework in Frameworks */,
+				4DBDFA0915415F0A003AD415 /* UIKit.framework in Frameworks */,
+				4DBDFA0B15415F0A003AD415 /* Foundation.framework in Frameworks */,
+				4DBDFA0D15415F0A003AD415 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4DB9BF121553DBC900718F74 /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				4DBDFA3A15416BAD003AD415 /* MPFoldSegue.h */,
+				4DBDFA3B15416BAD003AD415 /* MPFoldSegue.m */,
+				4DBDFA3415416BAD003AD415 /* MPFoldModalSegue.h */,
+				4DBDFA3515416BAD003AD415 /* MPFoldModalSegue.m */,
+				4DBDFA3615416BAD003AD415 /* MPFoldNavPopSegue.h */,
+				4DBDFA3715416BAD003AD415 /* MPFoldNavPopSegue.m */,
+				4DBDFA3815416BAD003AD415 /* MPFoldNavPushSegue.h */,
+				4DBDFA3915416BAD003AD415 /* MPFoldNavPushSegue.m */,
+			);
+			path = Segues;
+			sourceTree = "<group>";
+		};
+		4DB9BF191553E25D00718F74 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4DBDFA1A15415F0A003AD415 /* MainStoryboard_iPhone.storyboard */,
+				4DBDFA1D15415F0A003AD415 /* MainStoryboard_iPad.storyboard */,
+				4DB9BF1A1553E36200718F74 /* Icon-72.png */,
+				4DB9BF1B1553E36200718F74 /* Icon-72@2x.png */,
+				4DB9BF1C1553E36200718F74 /* Icon.png */,
+				4DB9BF1D1553E36200718F74 /* Icon@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4DBDF9F915415F09003AD415 = {
+			isa = PBXGroup;
+			children = (
+				4DBDFA2C15415FE1003AD415 /* Demo */,
+				4DBDFA0E15415F0A003AD415 /* MPFoldTransition */,
+				4DBDFA0715415F0A003AD415 /* Frameworks */,
+				4DBDFA0515415F0A003AD415 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4DBDFA0515415F0A003AD415 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DBDFA0415415F0A003AD415 /* MPFoldTransition.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4DBDFA0715415F0A003AD415 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4DBDFA2D15416013003AD415 /* QuartzCore.framework */,
+				4DBDFA0815415F0A003AD415 /* UIKit.framework */,
+				4DBDFA0A15415F0A003AD415 /* Foundation.framework */,
+				4DBDFA0C15415F0A003AD415 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4DBDFA0E15415F0A003AD415 /* MPFoldTransition */ = {
+			isa = PBXGroup;
+			children = (
+				4DB9BF121553DBC900718F74 /* Segues */,
+				4DDCC8E2154960C500489938 /* MPFoldEnumerations.h */,
+				4DBDFA3215416BAD003AD415 /* MPAnimation.h */,
+				4DBDFA3315416BAD003AD415 /* MPAnimation.m */,
+				4DBDFA3C15416BAD003AD415 /* MPFoldTransition.h */,
+				4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */,
+			);
+			name = MPFoldTransition;
+			path = MPFoldTransition/MPFoldTransition;
+			sourceTree = "<group>";
+		};
+		4DBDFA0F15415F0A003AD415 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4DBDFA1015415F0A003AD415 /* MPFoldTransition-Info.plist */,
+				4DBDFA1115415F0A003AD415 /* InfoPlist.strings */,
+				4DBDFA1415415F0A003AD415 /* main.m */,
+				4DBDFA1615415F0A003AD415 /* MPFoldTransition-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = MPFoldTransition;
+			sourceTree = "<group>";
+		};
+		4DBDFA2C15415FE1003AD415 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				4DB9BF241553EA8A00718F74 /* README.markdown */,
+				4DB9BF221553E3A300718F74 /* Source Code License.rtf */,
+				4DB9BF251553EA8A00718F74 /* TODO.markdown */,
+				4DB9BF191553E25D00718F74 /* Resources */,
+				4DBDFA0F15415F0A003AD415 /* Supporting Files */,
+				4DBDFA1715415F0A003AD415 /* AppDelegate.h */,
+				4DBDFA1815415F0A003AD415 /* AppDelegate.m */,
+				4DBDFA2015415F0A003AD415 /* ViewController.h */,
+				4DBDFA2115415F0A003AD415 /* ViewController.m */,
+				4D63A176154FEE8500B310CF /* AboutViewController.h */,
+				4D63A177154FEE8500B310CF /* AboutViewController.m */,
+				4D63A178154FEE8600B310CF /* DetailsViewController.h */,
+				4D63A179154FEE8600B310CF /* DetailsViewController.m */,
+				4D63A172154FEE0D00B310CF /* StyleTable.h */,
+				4D63A173154FEE0D00B310CF /* StyleTable.m */,
+			);
+			name = Demo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4DBDFA0315415F0A003AD415 /* MPFoldTransition */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4DBDFA2515415F0A003AD415 /* Build configuration list for PBXNativeTarget "MPFoldTransition" */;
+			buildPhases = (
+				4DBDFA0015415F0A003AD415 /* Sources */,
+				4DBDFA0115415F0A003AD415 /* Frameworks */,
+				4DBDFA0215415F0A003AD415 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MPFoldTransition;
+			productName = MPFoldTransition;
+			productReference = 4DBDFA0415415F0A003AD415 /* MPFoldTransition.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4DBDF9FB15415F09003AD415 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Odyssey Computing";
+			};
+			buildConfigurationList = 4DBDF9FE15415F09003AD415 /* Build configuration list for PBXProject "MPFoldTransition" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4DBDF9F915415F09003AD415;
+			productRefGroup = 4DBDFA0515415F0A003AD415 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4DBDFA0315415F0A003AD415 /* MPFoldTransition */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4DBDFA0215415F0A003AD415 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DBDFA1315415F0A003AD415 /* InfoPlist.strings in Resources */,
+				4DBDFA1C15415F0A003AD415 /* MainStoryboard_iPhone.storyboard in Resources */,
+				4DBDFA1F15415F0A003AD415 /* MainStoryboard_iPad.storyboard in Resources */,
+				4DB9BF1E1553E36200718F74 /* Icon-72.png in Resources */,
+				4DB9BF1F1553E36200718F74 /* Icon-72@2x.png in Resources */,
+				4DB9BF201553E36200718F74 /* Icon.png in Resources */,
+				4DB9BF211553E36200718F74 /* Icon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4DBDFA0015415F0A003AD415 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DBDFA1515415F0A003AD415 /* main.m in Sources */,
+				4DBDFA1915415F0A003AD415 /* AppDelegate.m in Sources */,
+				4DBDFA2215415F0A003AD415 /* ViewController.m in Sources */,
+				4DBDFA3E15416BDA003AD415 /* MPAnimation.m in Sources */,
+				4DBDFA3F15416BDA003AD415 /* MPFoldModalSegue.m in Sources */,
+				4DBDFA4015416BDA003AD415 /* MPFoldNavPopSegue.m in Sources */,
+				4DBDFA4115416BDA003AD415 /* MPFoldNavPushSegue.m in Sources */,
+				4DBDFA4215416BDA003AD415 /* MPFoldSegue.m in Sources */,
+				4DBDFA4315416BDA003AD415 /* MPFoldTransition.m in Sources */,
+				4D63A174154FEE0D00B310CF /* StyleTable.m in Sources */,
+				4DFA2F0F154FF49D004AF678 /* AboutViewController.m in Sources */,
+				4DFA2F11154FF4A1004AF678 /* DetailsViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4DBDFA1115415F0A003AD415 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DBDFA1215415F0A003AD415 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4DBDFA1A15415F0A003AD415 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DBDFA1B15415F0A003AD415 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			path = MPFoldTransition;
+			sourceTree = "<group>";
+		};
+		4DBDFA1D15415F0A003AD415 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DBDFA1E15415F0A003AD415 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			path = MPFoldTransition;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4DBDFA2315415F0A003AD415 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4DBDFA2415415F0A003AD415 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4DBDFA2615415F0A003AD415 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MPFoldTransition/MPFoldTransition-Prefix.pch";
+				INFOPLIST_FILE = "MPFoldTransition/MPFoldTransition-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4DBDFA2715415F0A003AD415 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MPFoldTransition/MPFoldTransition-Prefix.pch";
+				INFOPLIST_FILE = "MPFoldTransition/MPFoldTransition-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4DBDF9FE15415F09003AD415 /* Build configuration list for PBXProject "MPFoldTransition" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DBDFA2315415F0A003AD415 /* Debug */,
+				4DBDFA2415415F0A003AD415 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DBDFA2515415F0A003AD415 /* Build configuration list for PBXNativeTarget "MPFoldTransition" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DBDFA2615415F0A003AD415 /* Debug */,
+				4DBDFA2715415F0A003AD415 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4DBDF9FB15415F09003AD415 /* Project object */;
+}
