@@ -1,7 +1,7 @@
 MPFoldTransition
 =====================
-MPFoldTransition is a set of classes to add folding-style transitions to iOS 5 projects.
-![iPhone Fold](http://markpospesel.files.wordpress.com/2012/05/iphone-fold.png)
+MPFoldTransition is a set of classes to add folding-style transitions to iOS 5 projects.  
+![iPhone Fold](http://markpospesel.files.wordpress.com/2012/05/iphone-fold.png)  
 I built it using ARC (and for the demo portion storyboards) strictly for convenience, so it uses iOS 5.  I imagine the relevant code (minus the UIStoryboardSegue helper classes) could be easily ported to iOS 4.3 under ARC, or ported to iOS 4.0 with memory management inserted.
 
 Features
@@ -16,12 +16,12 @@ Features
 Styles
 ---------
 Currently there are 3 different style bits that can be combined for 8 different styles.
-* Direction: Fold vs. Unfold
-![Fold vs. Unfold](http://markpospesel.files.wordpress.com/2012/05/fold-vs-unfold.png)
-* Mode: Normal vs. Cubic
-![Normal vs. Cubic](http://markpospesel.files.wordpress.com/2012/05/normal-vs-cubic.png)
-* Orientation: Vertical vs. Horizontal
-![Vertical vs. Horizontal](http://markpospesel.files.wordpress.com/2012/05/vertical-vs-horizontal.png)
+* Direction: Fold vs. Unfold  
+![Fold vs. Unfold](http://markpospesel.files.wordpress.com/2012/05/fold-vs-unfold.png)  
+* Mode: Normal vs. Cubic  
+![Normal vs. Cubic](http://markpospesel.files.wordpress.com/2012/05/normal-vs-cubic.png)  
+* Orientation: Vertical vs. Horizontal  
+![Vertical vs. Horizontal](http://markpospesel.files.wordpress.com/2012/05/vertical-vs-horizontal.png)  
 
 How To Use
 ---------
