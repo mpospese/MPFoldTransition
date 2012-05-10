@@ -7,6 +7,8 @@
 //
 
 #define DEFAULT_DURATION 0.3
+#define DEFAULT_SHADOW_OPACITY 0.5
+#define DEFAULT_SHADOW_ADJUSTMENT_FACTOR 0.9
 
 #import "MPFoldTransition.h"
 #import "MPAnimation.h"
@@ -30,6 +32,9 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 @synthesize style = _style;
 @synthesize completionAction = _completionAction;
 @synthesize timingCurve = _timingCurve;
+@synthesize foldShadowOpacity = _foldShadowOpacity;
+@synthesize foldShadowAdjustmentFactor = _foldShadowAdjustmentFactor;
+@synthesize foldShadowColor = _foldShadowColor;
 
 @synthesize dismissing = _dismissing;
 
@@ -47,6 +52,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 			_timingCurve = UIViewAnimationCurveEaseIn;
 		else 
 			_timingCurve = UIViewAnimationCurveEaseOut;
+		
+		_foldShadowOpacity = DEFAULT_SHADOW_OPACITY;
+		_foldShadowAdjustmentFactor = DEFAULT_SHADOW_ADJUSTMENT_FACTOR;
+		_foldShadowColor = [UIColor blackColor];
 	}
 	
 	return self;
@@ -262,13 +271,13 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	upperFoldShadow = [CALayer layer];
 	[upperFold addSublayer:upperFoldShadow];
 	upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
-	upperFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
+	upperFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
 	upperFoldShadow.opacity = 0;
 	
 	lowerFoldShadow = [CALayer layer];
 	[lowerFold addSublayer:lowerFoldShadow];
 	lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
-	lowerFoldShadow.backgroundColor = [UIColor blackColor].CGColor;
+	lowerFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
 	lowerFoldShadow.opacity = 0;
 	
 	if (cubic)
@@ -277,13 +286,13 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		topSleeveShadow = [CALayer layer];
 		[topSleeve addSublayer:topSleeveShadow];
 		topSleeveShadow.frame = CGRectInset(topSleeve.bounds, slideInsets.left, slideInsets.top);
-		topSleeveShadow.backgroundColor = [UIColor blackColor].CGColor;
+		topSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
 		topSleeveShadow.opacity = 0;
 		
 		bottomSleeveShadow = [CALayer layer];
 		[bottomSleeve addSublayer:bottomSleeveShadow];
 		bottomSleeveShadow.frame = CGRectInset(bottomSleeve.bounds, slideInsets.left, slideInsets.top);
-		bottomSleeveShadow.backgroundColor = [UIColor blackColor].CGColor;
+		bottomSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
 		bottomSleeveShadow.opacity = 0;
 	}
 	
@@ -373,15 +382,15 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// Dim the 2 folding panels as they fold away from us
 	// Note that 2 slightly different endpoint opacities are used to help distinguish the upper and lower panels
 	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:0.5]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:0.5] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
+	[animation setToValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[upperFoldShadow addAnimation:animation forKey:nil];
 	
 	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:0.45]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:0.45] : [NSNumber numberWithDouble:0]]; // use slightly different opacities for the 2 halves
+	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowAdjustmentFactor] * [self foldShadowOpacity]]];
+	[animation setToValue:forwards? [NSNumber numberWithDouble:[self foldShadowAdjustmentFactor] * [self foldShadowOpacity]] : [NSNumber numberWithDouble:0]]; // use slightly different opacities for the 2 halves
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[lowerFoldShadow addAnimation:animation forKey:nil];
@@ -389,15 +398,15 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	if (cubic)
 	{
 		animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-		[animation setFromValue:forwards? [NSNumber numberWithDouble:0.5] : [NSNumber numberWithDouble:0]];
-		[animation setToValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:0.5]];
+		[animation setFromValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]];
+		[animation setToValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
 		[animation setFillMode:kCAFillModeForwards];
 		[animation setRemovedOnCompletion:NO];
 		[topSleeveShadow addAnimation:animation forKey:nil];
 		
 		animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-		[animation setFromValue:forwards? [NSNumber numberWithDouble:0.5] : [NSNumber numberWithDouble:0]];
-		[animation setToValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:0.5]];
+		[animation setFromValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]];
+		[animation setToValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
 		[animation setFillMode:kCAFillModeForwards];
 		[animation setRemovedOnCompletion:NO];
 		[bottomSleeveShadow addAnimation:animation forKey:nil];

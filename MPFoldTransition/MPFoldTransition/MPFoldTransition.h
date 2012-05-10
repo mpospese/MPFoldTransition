@@ -22,6 +22,12 @@ typedef void (^CompletionBlock)(BOOL);
 @property (assign, nonatomic) MPTransitionAction completionAction;
 @property (assign, nonatomic) UIViewAnimationCurve timingCurve;
 
+// Maximum shadow opacity (when fully folded)
+@property (assign, nonatomic) CGFloat foldShadowOpacity;
+// Adjustment factor to differentiate between 2 adjacent shadows (0 to 1, 1 = no difference)
+@property (assign, nonatomic) CGFloat foldShadowAdjustmentFactor;
+@property (strong, nonatomic) UIColor *foldShadowColor;
+
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration style:(MPFoldStyle)style completionAction:(MPTransitionAction)action;
 - (void)perform;
 - (void)perform:(void (^)(BOOL finished))completion;
