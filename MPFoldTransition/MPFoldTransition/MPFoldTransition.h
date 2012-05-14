@@ -1,27 +1,20 @@
 //
 //  MPFoldTransition.h
-//  MPFoldTransition (v 1.0.0)
+//  MPFoldTransition (v1.0.1)
 //
 //  Created by Mark Pospesel on 4/4/12.
-//  Copyright (c) 2012 Odyssey Computing. All rights reserved.
+//  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "MPFoldEnumerations.h"
+#import "MPTransition.h"
 
-typedef void (^CompletionBlock)(BOOL);
+@interface MPFoldTransition : MPTransition
 
+#pragma mark - Properties
 
-@interface MPFoldTransition : NSObject
-
-@property (strong, nonatomic) UIView *sourceView;
-@property (strong, nonatomic) UIView *destinationView;
-@property (assign, nonatomic) NSTimeInterval duration;
-@property (assign, nonatomic) CGRect rect;
 @property (assign, nonatomic) MPFoldStyle style;
-@property (assign, nonatomic) MPTransitionAction completionAction;
-@property (assign, nonatomic) UIViewAnimationCurve timingCurve;
-
 // Maximum shadow opacity (when fully folded)
 @property (assign, nonatomic) CGFloat foldShadowOpacity;
 // Adjustment factor to differentiate between 2 adjacent shadows (0 to 1, 1 = no difference)
@@ -29,10 +22,12 @@ typedef void (^CompletionBlock)(BOOL);
 @property (strong, nonatomic) UIColor *foldShadowColor;
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration style:(MPFoldStyle)style completionAction:(MPTransitionAction)action;
-- (void)perform;
+
+#pragma mark - Instance methods
+
 - (void)perform:(void (^)(BOOL finished))completion;
 
-+ (NSTimeInterval)defaultDuration;
+#pragma mark - Class methods
 
 // For generic UIViewController transitions
 + (void)transitionFromViewController:(UIViewController *)fromController 
@@ -52,6 +47,8 @@ typedef void (^CompletionBlock)(BOOL);
 
 @end
 
+#pragma mark - UIViewController extensions
+
 // Convenience method extensions for UIViewController
 @interface UIViewController(MPFoldTransition)
 
@@ -64,6 +61,8 @@ typedef void (^CompletionBlock)(BOOL);
 - (void)dismissViewControllerWithFoldStyle:(MPFoldStyle)style completion:(void (^)(BOOL finished))completion;
 																		  
 @end
+
+#pragma mark - UINavigationController extensions
 
 // Convenience method extensions for UINavigationController
 @interface UINavigationController(MPFoldTransition)

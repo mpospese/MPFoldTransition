@@ -1,12 +1,11 @@
 //
 //  MPFoldTransition.m
-//  MPFoldTransition (v 1.0.0)
+//  MPFoldTransition (v1.0.1)
 //
 //  Created by Mark Pospesel on 4/4/12.
-//  Copyright (c) 2012 Odyssey Computing. All rights reserved.
+//  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
-#define DEFAULT_DURATION 0.3
 #define DEFAULT_SHADOW_OPACITY 0.5
 #define DEFAULT_SHADOW_ADJUSTMENT_FACTOR 0.9
 
@@ -19,40 +18,24 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 
 @interface MPFoldTransition()
 
-@property (assign, nonatomic, getter = isDimissing) BOOL dismissing;
-
 @end
 
 @implementation MPFoldTransition
 
-@synthesize sourceView = _sourceView;
-@synthesize destinationView = _destinationView;
-@synthesize duration = _duration;
-@synthesize rect = _rect;
+#pragma mark - Properties
+
 @synthesize style = _style;
-@synthesize completionAction = _completionAction;
-@synthesize timingCurve = _timingCurve;
 @synthesize foldShadowOpacity = _foldShadowOpacity;
 @synthesize foldShadowAdjustmentFactor = _foldShadowAdjustmentFactor;
 @synthesize foldShadowColor = _foldShadowColor;
 
-@synthesize dismissing = _dismissing;
+#pragma mark - init
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration style:(MPFoldStyle)style completionAction:(MPTransitionAction)action {
-	self = [super init];
+	self = [super initWithSourceView:sourceView destinationView:destinationView duration:duration timingCurve:(((style & MPFoldStyleUnfold) == MPFoldStyleUnfold)? UIViewAnimationCurveEaseIn : UIViewAnimationCurveEaseOut) completionAction:action];
 	if (self)
 	{
-		_sourceView = sourceView;
-		_destinationView = destinationView;
-		_duration = duration;
-		_style = style;
-		_rect = [sourceView bounds];
-		_completionAction = action;
-		if ((style & MPFoldStyleUnfold) == MPFoldStyleUnfold)
-			_timingCurve = UIViewAnimationCurveEaseIn;
-		else 
-			_timingCurve = UIViewAnimationCurveEaseOut;
-		
+		_style = style;		
 		_foldShadowOpacity = DEFAULT_SHADOW_OPACITY;
 		_foldShadowAdjustmentFactor = DEFAULT_SHADOW_ADJUSTMENT_FACTOR;
 		_foldShadowColor = [UIColor blackColor];
@@ -62,30 +45,6 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 }
 
 #pragma mark - Instance methods
-
-- (NSString *)timingCurveFunctionName
-{
-	switch ([self timingCurve]) {
-		case UIViewAnimationCurveEaseOut:
-			return kCAMediaTimingFunctionEaseOut;
-			
-		case UIViewAnimationCurveEaseIn:
-			return kCAMediaTimingFunctionEaseIn;
-			
-		case UIViewAnimationCurveEaseInOut:
-			return kCAMediaTimingFunctionEaseInEaseOut;
-			
-		case UIViewAnimationCurveLinear:
-			return kCAMediaTimingFunctionLinear;
-	}
-	
-	return kCAMediaTimingFunctionDefault;
-}
-
-- (void)perform
-{
-	[self perform:nil];
-}
 
 - (void)perform:(void (^)(BOOL finished))completion
 {
@@ -416,32 +375,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	[CATransaction commit];
 }
 
-- (void)transitionDidComplete
-{
-	switch (self.completionAction) {
-		case MPTransitionActionAddRemove:
-			[[self.sourceView superview] addSubview:self.destinationView];
-			[self.sourceView removeFromSuperview];
-			[self.sourceView setHidden:NO];
-			break;
-			
-		case MPTransitionActionShowHide:
-			[self.destinationView setHidden:NO];
-			[self.sourceView setHidden:YES];
-			break;
-			
-		case MPTransitionActionNone:
-			[self.sourceView setHidden:NO];
-			break;
-	}
-}
-
 #pragma mark - Class methods
-
-+ (NSTimeInterval)defaultDuration
-{
-	return DEFAULT_DURATION;
-}
 
 + (void)transitionFromViewController:(UIViewController *)fromController toViewController:(UIViewController *)toController duration:(NSTimeInterval)duration style:(MPFoldStyle)style completion:(void (^)(BOOL finished))completion
 {
@@ -456,31 +390,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 }
 
 + (void)presentViewController:(UIViewController *)viewControllerToPresent from:(UIViewController *)presentingController duration:(NSTimeInterval)duration style:(MPFoldStyle)style completion:(void (^)(BOOL finished))completion
-{
-    UIViewController *src = (UIViewController *)presentingController;
-	// find out the presentation context for the presenting view controller
-	while (YES)// (![src definesPresentationContext])
-	{
-		if (![src parentViewController])
-			break;
-		
-		src = [src parentViewController];
-	}
-		
-	MPFoldTransition *foldTransition = [[MPFoldTransition alloc] initWithSourceView:src.view destinationView:viewControllerToPresent.view duration:duration style:style completionAction:MPTransitionActionNone];
+{		
+	MPFoldTransition *foldTransition = [[MPFoldTransition alloc] initWithSourceView:presentingController.view destinationView:viewControllerToPresent.view duration:duration style:style completionAction:MPTransitionActionNone];
 	
-	if ([src wantsFullScreenLayout])
-	{
-		// don't include the status bar height in the rect to fold
-		CGRect frame = src.view.frame;
-		CGRect frameViewRect = [src.view convertRect:frame fromView:nil];
-		CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-		CGRect statusBarWindowRect = [src.view.window convertRect:statusBarFrame fromWindow: nil];
-		CGRect statusBarViewRect = [src.view convertRect:statusBarWindowRect fromView: nil];			
-		frameViewRect.origin.y += statusBarViewRect.size.height;
-		frameViewRect.size.height -= statusBarViewRect.size.height;
-		[foldTransition setRect:frameViewRect];
-	}
+	[foldTransition setPresentingController:presentingController];
 	
 	[foldTransition perform:^(BOOL finished) {
 		// under iPad for our fold transition, we need to be full screen modal (iPhone is always full screen modal)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D63A174154FEE0D00B310CF /* StyleTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A173154FEE0D00B310CF /* StyleTable.m */; };
+		4DB921531561117B0080D608 /* MPTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB921521561117B0080D608 /* MPTransition.m */; };
 		4DB9BF1E1553E36200718F74 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1A1553E36200718F74 /* Icon-72.png */; };
 		4DB9BF1F1553E36200718F74 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1B1553E36200718F74 /* Icon-72@2x.png */; };
 		4DB9BF201553E36200718F74 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BF1C1553E36200718F74 /* Icon.png */; };
@@ -39,6 +40,9 @@
 		4D63A177154FEE8500B310CF /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = MPFoldTransition/AboutViewController.m; sourceTree = "<group>"; };
 		4D63A178154FEE8600B310CF /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DetailsViewController.h; path = MPFoldTransition/DetailsViewController.h; sourceTree = "<group>"; };
 		4D63A179154FEE8600B310CF /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DetailsViewController.m; path = MPFoldTransition/DetailsViewController.m; sourceTree = "<group>"; };
+		4DB921511561117B0080D608 /* MPTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPTransition.h; sourceTree = "<group>"; };
+		4DB921521561117B0080D608 /* MPTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPTransition.m; sourceTree = "<group>"; };
+		4DB92155156111C00080D608 /* MPTransitionEnumerations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPTransitionEnumerations.h; sourceTree = "<group>"; };
 		4DB9BF1A1553E36200718F74 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "MPFoldTransition/Icon-72.png"; sourceTree = "<group>"; };
 		4DB9BF1B1553E36200718F74 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "MPFoldTransition/Icon-72@2x.png"; sourceTree = "<group>"; };
 		4DB9BF1C1553E36200718F74 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = MPFoldTransition/Icon.png; sourceTree = "<group>"; };
@@ -152,11 +156,14 @@
 			isa = PBXGroup;
 			children = (
 				4DB9BF121553DBC900718F74 /* Segues */,
+				4DB92155156111C00080D608 /* MPTransitionEnumerations.h */,
 				4DDCC8E2154960C500489938 /* MPFoldEnumerations.h */,
 				4DBDFA3215416BAD003AD415 /* MPAnimation.h */,
 				4DBDFA3315416BAD003AD415 /* MPAnimation.m */,
 				4DBDFA3C15416BAD003AD415 /* MPFoldTransition.h */,
 				4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */,
+				4DB921511561117B0080D608 /* MPTransition.h */,
+				4DB921521561117B0080D608 /* MPTransition.m */,
 			);
 			name = MPFoldTransition;
 			path = MPFoldTransition/MPFoldTransition;
@@ -276,6 +283,7 @@
 				4D63A174154FEE0D00B310CF /* StyleTable.m in Sources */,
 				4DFA2F0F154FF49D004AF678 /* AboutViewController.m in Sources */,
 				4DFA2F11154FF4A1004AF678 /* DetailsViewController.m in Sources */,
+				4DB921531561117B0080D608 /* MPTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
