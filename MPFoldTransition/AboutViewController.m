@@ -3,7 +3,7 @@
 //  MPFoldTransition (v 1.0.0)
 //
 //  Created by Mark Pospesel on 4/23/12.
-//  Copyright (c) 2012 Odyssey Computing. All rights reserved.
+//  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
 #import "AboutViewController.h"
