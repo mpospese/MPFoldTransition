@@ -1,6 +1,6 @@
 //
 //  MPTransition.m
-//  MPFoldTransition (v1.0.1)
+//  MPFoldTransition (v1.0.2)
 //
 //  Created by Mark Pospesel on 5/14/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -19,6 +19,7 @@
 @synthesize completionAction = _completionAction;
 @synthesize timingCurve = _timingCurve;
 @synthesize dismissing = _dismissing;
+@synthesize m34 = _m34;
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration timingCurve:(UIViewAnimationCurve)timingCurve completionAction:(MPTransitionAction)action {
 	self = [super init];
@@ -30,6 +31,7 @@
 		_rect = [sourceView bounds];
 		_timingCurve = timingCurve;
 		_completionAction = action;
+		_m34 = INFINITY;
 	}
 	
 	return self;

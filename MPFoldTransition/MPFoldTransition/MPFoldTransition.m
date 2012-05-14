@@ -1,6 +1,6 @@
 //
 //  MPFoldTransition.m
-//  MPFoldTransition (v1.0.1)
+//  MPFoldTransition (v1.0.2)
 //
 //  Created by Mark Pospesel on 4/4/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -260,7 +260,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// Perspective is best proportional to the height of the pieces being folded away, rather than a fixed value
 	// the larger the piece being folded, the more perspective distance (zDistance) is needed.
 	// m34 = -1/zDistance
-	transform.m34 = -1.0/(height * 4.6666667);
+	if ([self m34] == INFINITY)
+		transform.m34 = -1.0/(height * 4.6666667);
+	else
+		transform.m34 = [self m34];
 	perspectiveLayer.sublayerTransform = transform;
 	
 	// Create a transaction (to group our animations with a single callback when done)

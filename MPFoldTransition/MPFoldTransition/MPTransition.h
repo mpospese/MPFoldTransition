@@ -1,6 +1,6 @@
 //
 //  MPTransition.h
-//  MPFoldTransition (v1.0.1)
+//  MPFoldTransition (v1.0.2)
 //
 //  Created by Mark Pospesel on 5/14/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -22,6 +22,8 @@ typedef void (^CompletionBlock)(BOOL);
 @property (assign, nonatomic) CGRect rect;
 @property (assign, nonatomic) MPTransitionAction completionAction;
 @property (assign, nonatomic) UIViewAnimationCurve timingCurve;
+// Perspective component of transformation (Advanced use only, generally don't need to adjust)
+@property (assign, nonatomic) float m34;
 
 // Special case of dismissing a modal view
 @property (assign, nonatomic, getter = isDimissing) BOOL dismissing;
