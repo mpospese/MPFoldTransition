@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  MPFoldTransition (v 1.0.0)
+//  MPTransition (v 1.1.0)
 //
 //  Created by Mark Pospesel on 4/20/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MPFoldTransition.h"
+#import "MPFlipTransition.h"
 #import "AppDelegate.h"
 #import "MPFoldSegue.h"
 #import "DetailsViewController.h"
@@ -16,6 +17,8 @@
 #define ABOUT_SEGUE_IDENTIFIER		@"segueToAbout"
 #define DETAILS_SEGUE_IDENTIFIER	@"segueToDetails"
 #define STYLE_TABLE_IDENTIFIER	@"StyleTableID"
+#define FOLD_STYLE_TABLE_IDENTIFIER	@"FoldStyleTableID"
+#define FLIP_STYLE_TABLE_IDENTIFIER	@"FlipStyleTableID"
 
 @interface ViewController ()
 
@@ -25,7 +28,9 @@
 
 @implementation ViewController
 
-@synthesize style = _style;
+@synthesize mode = _mode;
+@synthesize foldStyle = _foldStyle;
+@synthesize flipStyle = _flipStyle;
 @synthesize contentView = _contentView;
 @synthesize popover = _popover;
 
@@ -66,8 +71,43 @@
 
 - (void)doInit
 {
-	_style = MPFoldStyleCubic;
+	_mode = MPTransitionModeFold;
+	_foldStyle = MPFoldStyleCubic;
+	_flipStyle = MPFlipStyleDefault;
 }
+
+#pragma mark - Properties
+
+- (NSUInteger)style
+{
+	switch ([self mode]) {
+		case MPTransitionModeFold:
+			return [self foldStyle];
+			
+		case MPTransitionModeFlip:
+			return [self flipStyle];
+	}
+}
+
+- (void)setStyle:(NSUInteger)style
+{
+	switch ([self mode]) {
+		case MPTransitionModeFold:
+			[self setFoldStyle:style];
+			break;
+			
+		case MPTransitionModeFlip:
+			[self setFlipStyle:style];
+			break;
+	}
+}
+
+- (BOOL)isFold
+{
+	return [self mode] == MPTransitionModeFold;
+}
+
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad
 {
@@ -92,6 +132,8 @@
 	    return YES;
 	}
 }
+
+#pragma mark - Instance methods
 
 - (UILabel *)getLabelForIndex:(NSUInteger)index
 {
@@ -150,15 +192,30 @@
 		forwards = YES;
 	
 	// execute the transition
-	[MPFoldTransition transitionFromView:previousView 
-								  toView:nextView 
-								duration:[MPFoldTransition defaultDuration]
-								   style:forwards? [self style]	: MPFoldStyleFlipFoldBit([self style]) 
-						transitionAction:MPTransitionActionAddRemove
-							  completion:^(BOOL finished) {
-								  [stepper setUserInteractionEnabled:YES];
-							  }
-	 ];
+	if ([self isFold])
+	{
+		[MPFoldTransition transitionFromView:previousView 
+									  toView:nextView 
+									duration:[MPFoldTransition defaultDuration]
+									   style:forwards? [self foldStyle]	: MPFoldStyleFlipFoldBit([self foldStyle]) 
+							transitionAction:MPTransitionActionAddRemove
+								  completion:^(BOOL finished) {
+									  [stepper setUserInteractionEnabled:YES];
+								  }
+		 ];
+	}
+	else
+	{
+		[MPFlipTransition transitionFromView:previousView 
+									  toView:nextView 
+									duration:[MPTransition defaultDuration]
+									   style:forwards? [self flipStyle]	: MPFlipStyleFlipDirectionBit([self flipStyle]) 
+							transitionAction:MPTransitionActionAddRemove
+								  completion:^(BOOL finished) {
+									  [stepper setUserInteractionEnabled:YES];
+								  }
+		 ];
+	}
 }
 
 /*	Info button is wired to use a storyboard segue, 
@@ -173,30 +230,32 @@
 }*/
 
 - (IBAction)stylePressed:(id)sender {
-	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+	BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+	// for iPad present Style table as a popover
+	if (isPad && [self.popover isPopoverVisible])
+	{
+		[self.popover dismissPopoverAnimated:YES];
+		[self setPopover:nil];
+		return;
+	}
+	
+	BOOL isFold = [self isFold];
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[AppDelegate storyboardName] bundle:nil];
+	StyleTable *styleTable = [storyboard instantiateViewControllerWithIdentifier:isFold? FOLD_STYLE_TABLE_IDENTIFIER : FLIP_STYLE_TABLE_IDENTIFIER];
+	[styleTable setFold:isFold];
+	[styleTable setStyle:[self style]];
+	[styleTable setStyleDelegate:self];
+
+	if (!isPad)
 	{
 		// for iPhone push Style table onto navigation stack (using a fold transition in our current style!)
-		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[AppDelegate storyboardName] bundle:nil];
-		StyleTable *styleTable = [storyboard instantiateViewControllerWithIdentifier:STYLE_TABLE_IDENTIFIER];
-		[styleTable setStyle:[self style]];
-		[styleTable setStyleDelegate:self];
-		
-		[self.navigationController pushViewController:styleTable foldStyle:[self style]];
+		if (isFold)
+			[self.navigationController pushViewController:styleTable foldStyle:[self foldStyle]];
+		else
+			[self.navigationController pushViewController:styleTable flipStyle:[self flipStyle]];			
 	}
 	else
-	{
-		// for iPad present Style table as a popover
-		if ([self.popover isPopoverVisible])
-		{
-			[self.popover dismissPopoverAnimated:YES];
-			[self setPopover:nil];
-			return;
-		}
-		
-		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[AppDelegate storyboardName] bundle:nil];
-		StyleTable *styleTable = [storyboard instantiateViewControllerWithIdentifier:STYLE_TABLE_IDENTIFIER];
-		[styleTable setStyle:[self style]];
-		[styleTable setStyleDelegate:self];
+	{		
 		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:styleTable];
 		[self setPopover:[[UIPopoverController alloc] initWithContentViewController:navController]];
 		
@@ -213,10 +272,10 @@
 	if ([[segue identifier] isEqualToString:DETAILS_SEGUE_IDENTIFIER])
 	{
 		DetailsViewController *details = [segue destinationViewController];
-		[details setStyle:[self style]];
+		[details setStyle:[self foldStyle]];
 		
 		MPFoldSegue *foldSegue = (MPFoldSegue *)segue;
-		[foldSegue setStyle:[self style]];
+		[foldSegue setStyle:[self foldStyle]];
 	}
 	else if ([[segue identifier] isEqualToString:ABOUT_SEGUE_IDENTIFIER])
 	{
@@ -224,7 +283,7 @@
 		[about setModalDelegate:self];
 		
 		MPFoldSegue *foldSegue = (MPFoldSegue *)segue;
-		[foldSegue setStyle:[self style]];
+		[foldSegue setStyle:[self foldStyle]];
 	}
 }
 
@@ -233,7 +292,7 @@
 - (void)dismiss
 {
 	// use the opposite fold style from the transition that presented the modal view
-	MPFoldStyle dismissStyle = MPFoldStyleFlipFoldBit([self style]);
+	MPFoldStyle dismissStyle = MPFoldStyleFlipFoldBit([self foldStyle]);
 	
 	[self dismissViewControllerWithFoldStyle:dismissStyle completion:nil];
 }
@@ -247,13 +306,16 @@
 
 #pragma mark - StyleDelegate
 
-- (void)styleDidChange:(MPFoldStyle)newStyle
+- (void)styleDidChange:(NSUInteger)newStyle
 {
 	[self setStyle:newStyle];
 	
 	// We want clipsToBounds == YES on the central contentView when mode bit is not cubic
 	// Otherwise you see the top & bottom panels sliding out and looks weird
-	[self.contentView setClipsToBounds:((newStyle & MPFoldStyleCubic) != MPFoldStyleCubic)];
+	[self.contentView setClipsToBounds:[self isFold] && ((newStyle & MPFoldStyleCubic) != MPFoldStyleCubic)];
 }
 
+- (IBAction)modeValueChanged:(id)sender {
+	[self setMode:[sender selectedSegmentIndex]];
+}
 @end

@@ -1,6 +1,6 @@
 //
 //  StyleTable.m
-//  MPFoldTransition (v 1.0.0)
+//  MPTransition (v 1.1.0)
 //
 //  Created by Mark Pospesel on 5/1/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import "StyleTable.h"
 #import "MPFoldTransition.h"
+#import "MPFlipTransition.h"
 
 @interface StyleTable ()
 
@@ -15,6 +16,7 @@
 
 @implementation StyleTable
 
+@synthesize fold=_fold;
 @synthesize style=_style;
 @synthesize styleDelegate=_styleDelegate;
 
@@ -127,16 +129,26 @@
 		[newCell setAccessoryType:UITableViewCellAccessoryCheckmark];
 	}
 	
-	MPFoldStyle newStyle = ([self style] & ~(1 << section)) | (row << section);
+	NSUInteger newStyle = ([self style] & ~(1 << section)) | (row << section);
 	[self setStyle:newStyle];
 	[[self styleDelegate] styleDidChange:self.style];
 }
 
 - (IBAction)donePressed:(id)sender {
-	// use the opposite fold style from the selected style
-	MPFoldStyle popStyle = MPFoldStyleFlipFoldBit([self style]);
-	
-	[self.navigationController popViewControllerWithFoldStyle:popStyle];
+	if ([self isFold])
+	{
+		// use the opposite fold style from the selected style
+		MPFoldStyle popStyle = MPFoldStyleFlipFoldBit([self style]);
+		
+		[self.navigationController popViewControllerWithFoldStyle:popStyle];
+	}
+	else 
+	{
+		// use the opposite flip style from the selected style
+		MPFlipStyle popStyle = MPFlipStyleFlipDirectionBit([self style]);
+		
+		[self.navigationController popViewControllerWithFlipStyle:popStyle];
+	}
 }
 
 @end
