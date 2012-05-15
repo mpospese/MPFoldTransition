@@ -29,6 +29,7 @@
 		4DBDFA4115416BDA003AD415 /* MPFoldNavPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3915416BAD003AD415 /* MPFoldNavPushSegue.m */; };
 		4DBDFA4215416BDA003AD415 /* MPFoldSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3B15416BAD003AD415 /* MPFoldSegue.m */; };
 		4DBDFA4315416BDA003AD415 /* MPFoldTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */; };
+		4DEBF71A1562587100553D98 /* MPFlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF7191562587100553D98 /* MPFlipTransition.m */; };
 		4DFA2F0F154FF49D004AF678 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A177154FEE8500B310CF /* AboutViewController.m */; };
 		4DFA2F11154FF4A1004AF678 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A179154FEE8600B310CF /* DetailsViewController.m */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,9 @@
 		4DBDFA3C15416BAD003AD415 /* MPFoldTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldTransition.h; sourceTree = "<group>"; };
 		4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldTransition.m; sourceTree = "<group>"; };
 		4DDCC8E2154960C500489938 /* MPFoldEnumerations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldEnumerations.h; sourceTree = "<group>"; };
+		4DEBF7181562587100553D98 /* MPFlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPFlipTransition.h; sourceTree = "<group>"; };
+		4DEBF7191562587100553D98 /* MPFlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPFlipTransition.m; sourceTree = "<group>"; };
+		4DEBF71C156258E400553D98 /* MPFlipEnumerations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFlipEnumerations.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,9 @@
 				4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */,
 				4DB921511561117B0080D608 /* MPTransition.h */,
 				4DB921521561117B0080D608 /* MPTransition.m */,
+				4DEBF7181562587100553D98 /* MPFlipTransition.h */,
+				4DEBF7191562587100553D98 /* MPFlipTransition.m */,
+				4DEBF71C156258E400553D98 /* MPFlipEnumerations.h */,
 			);
 			name = MPFoldTransition;
 			path = MPFoldTransition/MPFoldTransition;
@@ -230,7 +237,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = "Odyssey Computing";
+				ORGANIZATIONNAME = "Mark Pospesel";
 			};
 			buildConfigurationList = 4DBDF9FE15415F09003AD415 /* Build configuration list for PBXProject "MPFoldTransition" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -284,6 +291,7 @@
 				4DFA2F0F154FF49D004AF678 /* AboutViewController.m in Sources */,
 				4DFA2F11154FF4A1004AF678 /* DetailsViewController.m in Sources */,
 				4DB921531561117B0080D608 /* MPTransition.m in Sources */,
+				4DEBF71A1562587100553D98 /* MPFlipTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
