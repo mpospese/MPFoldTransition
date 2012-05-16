@@ -31,8 +31,11 @@ Flip Styles
 ---------
 Currently there are 3 different style bits that can be combined for 8 different styles.
 * Direction: Forward vs. Backward  
+![Forward vs. Backward](http://markpospesel.files.wordpress.com/2012/05/forward-vs-backward.png)  
 * Orientation: Horizontal vs. Vertical  
+![Horizontal vs. Vertical](http://markpospesel.files.wordpress.com/2012/05/horizontal-vs-vertical.png)  
 * Perspective: Normal vs. Reverse  
+![Normal vs. Reverse](http://markpospesel.files.wordpress.com/2012/05/normal-vs-reverse.png)  
 
 How To Use
 ---------
