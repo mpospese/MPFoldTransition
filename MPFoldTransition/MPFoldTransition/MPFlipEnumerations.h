@@ -17,7 +17,7 @@
 // Horizontal = page flips right to left about a vertical spine
 // Vertical = page flips bottom to top about a horizontal spine
 
-// Bit 2: Perspective - Outward (unset) vs. Inward (set)
+// Bit 2: Perspective - Normal (unset) vs. Reverse (set)
 // Normal = page flips towards viewer
 // Reverse = page flips away from viewer
 
