@@ -81,8 +81,8 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 - (void)perform:(void (^)(BOOL finished))completion
 {
 	BOOL forwards = ([self style] & MPFlipStyleDirectionMask) != MPFlipStyleDirectionBackward;
-	BOOL vertical = ([self style] & MPFlipStyleOrientationMask) == MPFlipStyleVertical;
-	BOOL inward = ([self style] & MPFlipStylePerspectiveMask) == MPFlipStyleInward;
+	BOOL vertical = ([self style] & MPFlipStyleOrientationMask) == MPFlipStyleOrientationVertical;
+	BOOL inward = ([self style] & MPFlipStylePerspectiveMask) == MPFlipStylePerspectiveReverse;
 	
 	CGRect bounds = self.rect;
 	CGFloat scale = [[UIScreen mainScreen] scale];

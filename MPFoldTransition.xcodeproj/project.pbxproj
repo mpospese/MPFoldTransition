@@ -173,9 +173,9 @@
 				4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */,
 				4DB921511561117B0080D608 /* MPTransition.h */,
 				4DB921521561117B0080D608 /* MPTransition.m */,
+				4DEBF71C156258E400553D98 /* MPFlipEnumerations.h */,
 				4DEBF7181562587100553D98 /* MPFlipTransition.h */,
 				4DEBF7191562587100553D98 /* MPFlipTransition.m */,
-				4DEBF71C156258E400553D98 /* MPFlipEnumerations.h */,
 			);
 			name = MPFoldTransition;
 			path = MPFoldTransition/MPFoldTransition;
