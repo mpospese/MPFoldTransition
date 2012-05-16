@@ -82,6 +82,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 {
 	BOOL forwards = ([self style] & MPFlipStyleDirectionMask) != MPFlipStyleDirectionBackward;
 	BOOL vertical = ([self style] & MPFlipStyleOrientationMask) == MPFlipStyleVertical;
+	BOOL inward = ([self style] & MPFlipStylePerspectiveMask) == MPFlipStyleInward;
 	
 	CGRect bounds = self.rect;
 	CGFloat scale = [[UIScreen mainScreen] scale];
@@ -249,6 +250,8 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		transform.m34 = -1.0/(height * 4.6666667);
 	else
 		transform.m34 = [self m34];
+	if (inward)
+		transform.m34 = -transform.m34; // flip perspective around
 	mainView.layer.sublayerTransform = transform;
 	
 	NSString *rotationKey = vertical? @"transform.rotation.x" : @"transform.rotation.y";

@@ -17,20 +17,25 @@
 // Horizontal = page flips right to left about a vertical spine
 // Vertical = page flips bottom to top about a horizontal spine
 
+// Bit 2: Perspective - Outward (unset) vs. Inward (set)
+// Outward = page flips towards viewer
+// Inward = page flips away from viewer
+
 // TODO: spine position (left, mid, right // top, mid, bottom)
 
 enum {
 	// current view folds away into center, next view slides in flat from top & bottom
 	MPFlipStyleDefault				= 0,
 	MPFlipStyleDirectionBackward	= 1 << 0,
-	MPFlipStyleVertical				= 1 << 1
+	MPFlipStyleVertical				= 1 << 1,
+	MPFlipStyleInward				= 1 << 2
 };
 typedef NSUInteger MPFlipStyle;
 
 #define MPFlipStyleDirectionMask	MPFlipStyleDirectionBackward
 #define MPFlipStyleOrientationMask	MPFlipStyleVertical
+#define MPFlipStylePerspectiveMask	MPFlipStyleInward
 
 static inline MPFlipStyle MPFlipStyleFlipDirectionBit(MPFlipStyle style) { return (style & ~MPFlipStyleDirectionMask) | ((style & MPFlipStyleDirectionMask) == MPFlipStyleDirectionBackward? 0 : MPFlipStyleDirectionBackward); }
-
 
 #endif
