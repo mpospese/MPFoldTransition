@@ -273,11 +273,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5">
-                        <rect key="frame" x="0.0" y="44" width="768" height="980"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="5Ob-70-sOU">
-                                <rect key="frame" x="234" y="310" width="300" height="360"/>
+                                <rect key="frame" x="234" y="300" width="300" height="360"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" wraps="YES" maximumValue="5" id="WyY-GK-GQe">
@@ -303,7 +303,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="iRq-a8-f58">
-                                <rect key="frame" x="622" y="897" width="126" height="63"/>
+                                <rect key="frame" x="622" y="877" width="126" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="UINavigationController push transition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gQ0-1m-xOC">
@@ -325,14 +325,14 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bxT-gU-5Wc" kind="custom" identifier="segueToDetails" customClass="MPFoldNavPushSegue" id="kAX-pJ-WBF"/>
+                                            <action selector="detailPressed:" destination="2" eventType="touchUpInside" id="Nz6-gf-i6W"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="w5E-ch-Giw">
-                                <rect key="frame" x="20" y="897" width="80" height="63"/>
+                                <rect key="frame" x="20" y="877" width="80" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aW8-sm-Dyl">
@@ -347,7 +347,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="EYn-Hh-0XX" kind="custom" identifier="segueToAbout" customClass="MPFoldModalSegue" id="oXY-nq-NhI"/>
+                                            <action selector="infoPressed:" destination="2" eventType="touchUpInside" id="Fpx-Sd-lhZ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="modal transition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontSizeToFit="NO" id="4rN-4q-sqd">
@@ -395,9 +395,9 @@
         <scene sceneID="9cG-M1-kYc">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zl2-IX-mtX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="bxT-gU-5Wc" customClass="DetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsID" id="bxT-gU-5Wc" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tVb-pk-rNV">
-                        <rect key="frame" x="0.0" y="44" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Z8D-ey-d9F">
@@ -420,7 +420,7 @@
                     <navigationItem key="navigationItem" title="Detail" id="ii7-rb-cOH">
                         <barButtonItem key="rightBarButtonItem" title="Pop" style="done" id="l4B-7r-qQG">
                             <connections>
-                                <segue destination="2" kind="custom" customClass="MPFoldNavPopSegue" id="quN-c0-zTd"/>
+                                <action selector="popPressed:" destination="bxT-gU-5Wc" id="byH-EH-HaE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -433,9 +433,9 @@
         <scene sceneID="nEh-y5-dYk">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ooE-b9-uiw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="EYn-Hh-0XX" customClass="AboutViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutID" id="EYn-Hh-0XX" customClass="AboutViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zwm-Dy-fUf">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="dismiss modal transition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontSizeToFit="NO" id="YVM-6r-GKz">
@@ -499,32 +499,6 @@
             <point key="canvasLocation" x="751" y="747"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AboutViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed:"/>
-            </relationships>
-        </class>
-        <class className="DetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailsViewController.h"/>
-        </class>
-        <class className="StyleTable" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StyleTable.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed:"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="modeValueChanged:"/>
-                <relationship kind="action" name="stepperValueChanged:"/>
-                <relationship kind="action" name="stylePressed:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

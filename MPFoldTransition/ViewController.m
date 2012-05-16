@@ -14,6 +14,7 @@
 #import "DetailsViewController.h"
 
 #define ABOUT_IDENTIFIER		@"AboutID"
+#define DETAILS_IDENTIFIER		@"DetailsID"
 #define ABOUT_SEGUE_IDENTIFIER		@"segueToAbout"
 #define DETAILS_SEGUE_IDENTIFIER	@"segueToDetails"
 #define STYLE_TABLE_IDENTIFIER	@"StyleTableID"
@@ -179,6 +180,15 @@
 	return label;
 }
 
+- (void)updateClipsToBounds
+{
+	// We want clipsToBounds == YES on the central contentView when fold style mode bit is not cubic
+	// Otherwise you see the top & bottom panels sliding out and looks weird
+	[self.contentView setClipsToBounds:[self isFold] && (([self foldStyle] & MPFoldStyleCubic) != MPFoldStyleCubic)];	
+}
+
+#pragma mark - Touch handlers
+
 - (IBAction)stepperValueChanged:(id)sender {
 	UIStepper *stepper = sender;
 	[stepper setUserInteractionEnabled:NO];
@@ -218,16 +228,16 @@
 	}
 }
 
-/*	Info button is wired to use a storyboard segue, 
-	but if you wanted to remove the segue and do it in code
-	this is how you would do it
 - (IBAction)infoPressed:(UIBarButtonItem *)sender {
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[AppDelegate storyboardName] bundle:nil];
 	AboutViewController *about = [storyboard instantiateViewControllerWithIdentifier:ABOUT_IDENTIFIER];
 	[about setModalDelegate:self];
 
-	[self presentViewController:about foldStyle:[self style] completion:nil];
-}*/
+	if ([self isFold])
+		[self presentViewController:about foldStyle:[self foldStyle] completion:nil];
+	else
+		[self presentViewController:about flipStyle:[self flipStyle] completion:nil];
+}
 
 - (IBAction)stylePressed:(id)sender {
 	BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
@@ -256,6 +266,7 @@
 	}
 	else
 	{		
+		// for iPad, just use a popover
 		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:styleTable];
 		[self setPopover:[[UIPopoverController alloc] initWithContentViewController:navController]];
 		
@@ -264,9 +275,30 @@
 	}
 }
 
+- (IBAction)modeValueChanged:(id)sender {
+	// switch between fold & flip transitions
+	[self setMode:[sender selectedSegmentIndex]];
+	[self updateClipsToBounds];
+}
+
+- (IBAction)detailPressed:(id)sender {
+	BOOL isFold = [self isFold];
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[AppDelegate storyboardName] bundle:nil];
+	DetailsViewController *details = [storyboard instantiateViewControllerWithIdentifier:DETAILS_IDENTIFIER];
+	[details setFold:isFold];
+	[details setStyle:[self style]];
+	
+	// push Details view controller onto navigation stack (using a fold or flip transition in our current style!)
+	if (isFold)
+		[self.navigationController pushViewController:details foldStyle:[self foldStyle]];
+	else
+		[self.navigationController pushViewController:details flipStyle:[self flipStyle]];	
+}
+
 #pragma mark - Storyboards
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+// I removed the segues from the storyboards so that I could switch between flip and fold segue classes
+/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	// set the selected fold style to our segues
 	if ([[segue identifier] isEqualToString:DETAILS_SEGUE_IDENTIFIER])
@@ -285,16 +317,24 @@
 		MPFoldSegue *foldSegue = (MPFoldSegue *)segue;
 		[foldSegue setStyle:[self foldStyle]];
 	}
-}
+}*/
 
 #pragma mark - MPModalViewControllerDelegate
 
 - (void)dismiss
 {
 	// use the opposite fold style from the transition that presented the modal view
-	MPFoldStyle dismissStyle = MPFoldStyleFlipFoldBit([self foldStyle]);
-	
-	[self dismissViewControllerWithFoldStyle:dismissStyle completion:nil];
+	if ([self isFold])
+	{
+		MPFoldStyle dismissStyle = MPFoldStyleFlipFoldBit([self foldStyle]);
+		
+		[self dismissViewControllerWithFoldStyle:dismissStyle completion:nil];
+	}
+	else
+	{
+		MPFlipStyle dismissStyle = MPFlipStyleFlipDirectionBit([self flipStyle]);
+		[self dismissViewControllerWithFlipStyle:dismissStyle completion:nil];		
+	}
 }
 
 #pragma mark - UIPopoverControllerDelegate
@@ -309,13 +349,7 @@
 - (void)styleDidChange:(NSUInteger)newStyle
 {
 	[self setStyle:newStyle];
-	
-	// We want clipsToBounds == YES on the central contentView when mode bit is not cubic
-	// Otherwise you see the top & bottom panels sliding out and looks weird
-	[self.contentView setClipsToBounds:[self isFold] && ((newStyle & MPFoldStyleCubic) != MPFoldStyleCubic)];
+	[self updateClipsToBounds];
 }
 
-- (IBAction)modeValueChanged:(id)sender {
-	[self setMode:[sender selectedSegmentIndex]];
-}
 @end

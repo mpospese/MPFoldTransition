@@ -29,7 +29,8 @@ enum {
 
 - (IBAction)stepperValueChanged:(id)sender;
 - (IBAction)stylePressed:(UIBarButtonItem *)sender;
-//- (IBAction)infoPressed:(id)sender;
+- (IBAction)infoPressed:(id)sender;
 - (IBAction)modeValueChanged:(id)sender;
+- (IBAction)detailPressed:(id)sender;
 
 @end

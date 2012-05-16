@@ -23,12 +23,12 @@
                                 </connections>
                             </stepper>
                             <view contentMode="scaleToFill" id="HSa-mD-uY9">
-                                <rect key="frame" x="20.5" y="19.5" width="280" height="339"/>
+                                <rect key="frame" x="20" y="19" width="280" height="339"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="UIView transition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontSizeToFit="NO" id="aGq-aZ-tEO">
-                                <rect key="frame" x="113" y="358.5" width="94" height="20"/>
+                                <rect key="frame" x="113" y="358" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -60,7 +60,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Stx-Bs-S6U" kind="custom" identifier="segueToDetails" customClass="MPFoldNavPushSegue" id="93h-D6-gh8"/>
+                                    <action selector="detailPressed:" destination="2" eventType="touchUpInside" id="lVt-hD-9z4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="irK-6J-ykQ">
@@ -75,7 +75,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="gbY-x5-idu" kind="custom" identifier="segueToAbout" customClass="MPFoldModalSegue" id="3SF-wH-eTH"/>
+                                    <action selector="infoPressed:" destination="2" eventType="touchUpInside" id="fLv-Ok-hqK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -438,7 +438,7 @@
         <scene sceneID="Fvd-Pi-0bC">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TbH-N8-NcU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Stx-Bs-S6U" customClass="DetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsID" id="Stx-Bs-S6U" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6ea-Nw-OwI">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -463,7 +463,7 @@
                     <navigationItem key="navigationItem" title="Detail" id="MMq-Dp-ofz">
                         <barButtonItem key="rightBarButtonItem" title="Pop" style="done" id="bqs-Av-y2q">
                             <connections>
-                                <segue destination="2" kind="custom" customClass="MPFoldNavPopSegue" id="9Q5-iv-Qba"/>
+                                <action selector="popPressed:" destination="Stx-Bs-S6U" id="sNY-4G-xqU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -493,7 +493,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="t5h-7B-TFS"/>
-    </inferredMetricsTieBreakers>
 </document>

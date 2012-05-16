@@ -1,6 +1,6 @@
 //
 //  DetailsViewController.h
-//  MPFoldTransition (v 1.0.0)
+//  MPFoldTransition (v 1.1.0)
 //
 //  Created by Mark Pospesel on 4/20/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -11,6 +11,9 @@
 
 @interface DetailsViewController : UIViewController
 
-@property (assign, nonatomic) MPFoldStyle style;
+@property (assign, nonatomic, getter = isFold) BOOL fold;
+@property (assign, nonatomic) NSUInteger style;
+
+- (IBAction)popPressed:(id)sender;
 
 @end
