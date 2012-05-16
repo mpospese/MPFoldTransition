@@ -14,6 +14,11 @@
 #pragma mark - Properties
 
 @property (assign, nonatomic) MPFlipStyle style;
+@property (assign, nonatomic) CGFloat coveredPageShadowOpacity;
+@property (assign, nonatomic) CGFloat flippingPageShadowOpacity;
+@property (strong, nonatomic) UIColor *flipShadowColor;
+
+#pragma mark - init
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration style:(MPFlipStyle)style completionAction:(MPTransitionAction)action;
 

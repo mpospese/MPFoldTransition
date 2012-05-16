@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
+#define DEFAULT_COVERED_PAGE_SHADOW_OPACITY	0.5
+#define DEFAULT_FLIPPING_PAGE_SHADOW_OPACITY 0.1
+
 #import "MPFlipTransition.h"
 #import "MPAnimation.h"
 #import <QuartzCore/QuartzCore.h>
@@ -22,6 +25,9 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 #pragma mark - Properties
 
 @synthesize style = _style;
+@synthesize coveredPageShadowOpacity = _coveredPageShadowOpacity;
+@synthesize flippingPageShadowOpacity = _flippingPageShadowOpacity;
+@synthesize flipShadowColor = _flipShadowColor;
 
 #pragma mark - init
 
@@ -29,7 +35,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	self = [super initWithSourceView:sourceView destinationView:destinationView duration:duration timingCurve:UIViewAnimationCurveEaseInOut completionAction:action];
 	if (self)
 	{
-		_style = style;		
+		_style = style;	
+		_coveredPageShadowOpacity = DEFAULT_COVERED_PAGE_SHADOW_OPACITY;
+		_flippingPageShadowOpacity = DEFAULT_FLIPPING_PAGE_SHADOW_OPACITY;
+		_flipShadowColor = [UIColor blackColor];
 	}
 	
 	return self;
@@ -212,25 +221,25 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	pageFrontShadow = [CALayer layer];
 	[pageFront addSublayer:pageFrontShadow];
 	pageFrontShadow.frame = CGRectInset(pageFront.bounds, insets.left, insets.top);
-	pageFrontShadow.backgroundColor = [UIColor blackColor].CGColor;
+	pageFrontShadow.backgroundColor = [self flipShadowColor].CGColor;
 	pageFrontShadow.opacity = 0.0;
 	
 	pageBackShadow = [CALayer layer];
 	[pageBack addSublayer:pageBackShadow];
 	pageBackShadow.frame = CGRectInset(pageBack.bounds, insets.left, insets.top);
-	pageBackShadow.backgroundColor = [UIColor blackColor].CGColor;
-	pageBackShadow.opacity = 0.1;
+	pageBackShadow.backgroundColor = [self flipShadowColor].CGColor;
+	pageBackShadow.opacity = [self flippingPageShadowOpacity];
 	
 	pageRevealShadow = [CALayer layer];
 	[pageReveal addSublayer:pageRevealShadow];
 	pageRevealShadow.frame = pageReveal.bounds;
-	pageRevealShadow.backgroundColor = [UIColor blackColor].CGColor;
-	pageRevealShadow.opacity = 0.5;
+	pageRevealShadow.backgroundColor = [self flipShadowColor].CGColor;
+	pageRevealShadow.opacity = [self coveredPageShadowOpacity];
 	
 	pageFacingShadow = [CALayer layer];
 	[pageFacing addSublayer:pageFacingShadow];
 	pageFacingShadow.frame = pageFacing.bounds;
-	pageFacingShadow.backgroundColor = [UIColor blackColor].CGColor;
+	pageFacingShadow.backgroundColor = [self flipShadowColor].CGColor;
 	pageFacingShadow.opacity = 0.0;
 	
 	// Perspective is best proportional to the height of the pieces being folded away, rather than a fixed value
@@ -277,7 +286,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		
 		// Lighten back page just slightly as we flip (just to give it a crease where it touches reveal page)
 		animation2 = [CABasicAnimation animationWithKeyPath:@"opacity"];
-		[animation2 setFromValue:[NSNumber numberWithDouble:0.1]];
+		[animation2 setFromValue:[NSNumber numberWithDouble:[self flippingPageShadowOpacity]]];
 		[animation2 setToValue:[NSNumber numberWithDouble:0]];
 		[animation2 setFillMode:kCAFillModeForwards];
 		[animation2 setRemovedOnCompletion:NO];
@@ -286,7 +295,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		// Darken facing page as it gets covered by back page flipping down
 		animation2 = [CABasicAnimation animationWithKeyPath:@"opacity"];
 		[animation2 setFromValue:[NSNumber numberWithDouble:0]];
-		[animation2 setToValue:[NSNumber numberWithDouble:0.5]];
+		[animation2 setToValue:[NSNumber numberWithDouble:[self coveredPageShadowOpacity]]];
 		[animation2 setFillMode:kCAFillModeForwards];
 		[animation2 setRemovedOnCompletion:NO];
 		[pageFacingShadow addAnimation:animation2 forKey:nil];
@@ -310,14 +319,14 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// darken front page just slightly as we flip (just to give it a crease where it touches facing page)
 	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
 	[animation setFromValue:[NSNumber numberWithDouble:0]];
-	[animation setToValue:[NSNumber numberWithDouble:0.1]];
+	[animation setToValue:[NSNumber numberWithDouble:[self flippingPageShadowOpacity]]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[pageFrontShadow addAnimation:animation forKey:nil];
 	
 	// lighten the page that is revealed by front page flipping up
 	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	[animation setFromValue:[NSNumber numberWithDouble:0.5]];
+	[animation setFromValue:[NSNumber numberWithDouble:[self coveredPageShadowOpacity]]];
 	[animation setToValue:[NSNumber numberWithDouble:0]];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
