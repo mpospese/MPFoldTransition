@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
-#define DEFAULT_COVERED_PAGE_SHADOW_OPACITY	0.5
+#define DEFAULT_COVERED_PAGE_SHADOW_OPACITY	(1./3)
 #define DEFAULT_FLIPPING_PAGE_SHADOW_OPACITY 0.1
 
 #import "MPFlipTransition.h"
