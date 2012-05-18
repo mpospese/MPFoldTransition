@@ -231,17 +231,20 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	pageBackShadow.backgroundColor = [self flipShadowColor].CGColor;
 	pageBackShadow.opacity = [self flippingPageShadowOpacity];
 	
-	pageRevealShadow = [CALayer layer];
-	[pageReveal addSublayer:pageRevealShadow];
-	pageRevealShadow.frame = pageReveal.bounds;
-	pageRevealShadow.backgroundColor = [self flipShadowColor].CGColor;
-	pageRevealShadow.opacity = [self coveredPageShadowOpacity];
-	
-	pageFacingShadow = [CALayer layer];
-	[pageFacing addSublayer:pageFacingShadow];
-	pageFacingShadow.frame = pageFacing.bounds;
-	pageFacingShadow.backgroundColor = [self flipShadowColor].CGColor;
-	pageFacingShadow.opacity = 0.0;
+	if (!inward)
+	{
+		pageRevealShadow = [CALayer layer];
+		[pageReveal addSublayer:pageRevealShadow];
+		pageRevealShadow.frame = pageReveal.bounds;
+		pageRevealShadow.backgroundColor = [self flipShadowColor].CGColor;
+		pageRevealShadow.opacity = [self coveredPageShadowOpacity];
+		
+		pageFacingShadow = [CALayer layer];
+		[pageFacing addSublayer:pageFacingShadow];
+		pageFacingShadow.frame = pageFacing.bounds;
+		pageFacingShadow.backgroundColor = [self flipShadowColor].CGColor;
+		pageFacingShadow.opacity = 0.0;
+	}
 	
 	NSUInteger frameCount = ceilf((self.duration / 2) * 30); // 30 FPS should be fine for opacity changes
 	// (I would use 60 FPS if we were animating size/shape/position/rotation via keyframes)
@@ -299,25 +302,28 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		[animation2 setRemovedOnCompletion:NO];
 		[pageBackShadow addAnimation:animation2 forKey:nil];
 		
-		// Darken facing page as it gets covered by back page flipping down (along a sine curve)
-		NSMutableArray* arrayOpacity = [NSMutableArray arrayWithCapacity:frameCount + 1];
-		CGFloat progress;
-		CGFloat sinOpacity;
-		for (int frame = 0; frame <= frameCount; frame++)
+		if (!inward)
 		{
-			progress = (((float)frame) / frameCount);
-			sinOpacity = (sin(mp_radians(90 * progress))* coveredPageShadowOpacity);
-			if (frame == 0)
-				sinOpacity = 0;
-			[arrayOpacity addObject:[NSNumber numberWithFloat:sinOpacity]];
+			// Darken facing page as it gets covered by back page flipping down (along a sine curve)
+			NSMutableArray* arrayOpacity = [NSMutableArray arrayWithCapacity:frameCount + 1];
+			CGFloat progress;
+			CGFloat sinOpacity;
+			for (int frame = 0; frame <= frameCount; frame++)
+			{
+				progress = (((float)frame) / frameCount);
+				sinOpacity = (sin(mp_radians(90 * progress))* coveredPageShadowOpacity);
+				if (frame == 0)
+					sinOpacity = 0;
+				[arrayOpacity addObject:[NSNumber numberWithFloat:sinOpacity]];
+			}
+			
+			CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+			[keyAnimation setValues:[NSArray arrayWithArray:arrayOpacity]];
+			[keyAnimation setFillMode:kCAFillModeForwards];
+			[keyAnimation setRemovedOnCompletion:NO];
+			[pageFacingShadow addAnimation:keyAnimation forKey:nil];
 		}
 		
-		CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-		[keyAnimation setValues:[NSArray arrayWithArray:arrayOpacity]];
-		[keyAnimation setFillMode:kCAFillModeForwards];
-		[keyAnimation setRemovedOnCompletion:NO];
-		[pageFacingShadow addAnimation:keyAnimation forKey:nil];
-
 		// Commit the transaction for 2nd half
 		[CATransaction commit];
 	}];
@@ -342,25 +348,28 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	[animation setRemovedOnCompletion:NO];
 	[pageFrontShadow addAnimation:animation forKey:nil];
 	
-	// lighten the page that is revealed by front page flipping up (along a cosine curve)
-	NSMutableArray* arrayOpacity = [NSMutableArray arrayWithCapacity:frameCount + 1];
-	CGFloat progress;
-	CGFloat cosOpacity;
-	for (int frame = 0; frame <= frameCount; frame++)
+	if (!inward)
 	{
-		progress = (((float)frame) / frameCount);
-		cosOpacity = (cos(mp_radians(90 * progress))* coveredPageShadowOpacity);
- 		if (frame == frameCount)
-			cosOpacity = 0;
-		[arrayOpacity addObject:[NSNumber numberWithFloat:cosOpacity]];
+		// lighten the page that is revealed by front page flipping up (along a cosine curve)
+		NSMutableArray* arrayOpacity = [NSMutableArray arrayWithCapacity:frameCount + 1];
+		CGFloat progress;
+		CGFloat cosOpacity;
+		for (int frame = 0; frame <= frameCount; frame++)
+		{
+			progress = (((float)frame) / frameCount);
+			cosOpacity = (cos(mp_radians(90 * progress))* coveredPageShadowOpacity);
+			if (frame == frameCount)
+				cosOpacity = 0;
+			[arrayOpacity addObject:[NSNumber numberWithFloat:cosOpacity]];
+		}
+		
+		CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+		[keyAnimation setValues:[NSArray arrayWithArray:arrayOpacity]];
+		[keyAnimation setFillMode:kCAFillModeForwards];
+		[keyAnimation setRemovedOnCompletion:NO];
+		[pageRevealShadow addAnimation:keyAnimation forKey:nil];
 	}
 	
-	CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-	[keyAnimation setValues:[NSArray arrayWithArray:arrayOpacity]];
-	[keyAnimation setFillMode:kCAFillModeForwards];
-	[keyAnimation setRemovedOnCompletion:NO];
-	[pageRevealShadow addAnimation:keyAnimation forKey:nil];
-		
 	// Commit the transaction for 1st half
 	[CATransaction commit];
 }
