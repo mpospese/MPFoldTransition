@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "MPFoldSegue.h"
 #import "DetailsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define ABOUT_IDENTIFIER		@"AboutID"
 #define DETAILS_IDENTIFIER		@"DetailsID"
@@ -136,15 +137,18 @@
 
 #pragma mark - Instance methods
 
-- (UILabel *)getLabelForIndex:(NSUInteger)index
+- (UIView *)getLabelForIndex:(NSUInteger)index
 {
-	UILabel *label = [[UILabel alloc] initWithFrame:self.contentView.bounds];
+	UIView *container = [[UIView alloc] initWithFrame:self.contentView.bounds];
+	container.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	[container setBackgroundColor:[UIColor whiteColor]];
+	
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(container.bounds, 10, 10)];
 	label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	[label setFont:[UIFont boldSystemFontOfSize:84]];
 	[label setTextAlignment:UITextAlignmentCenter];
 	[label setTextColor:[UIColor lightTextColor]];
 	label.text = [NSString stringWithFormat:@"%d", index + 1];
-	label.tag = index;
 	
 	switch (index % 6) {
 		case 0:
@@ -177,7 +181,12 @@
 			break;
 	}
 	
-	return label;
+	[container addSubview:label];
+	container.tag = index;
+	[container.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+	[container.layer setBorderWidth:1];
+	
+	return container;
 }
 
 - (void)updateClipsToBounds
