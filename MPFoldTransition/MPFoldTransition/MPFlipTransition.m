@@ -167,8 +167,8 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	CALayer *pageBack;
 	CALayer *pageFacing;
 	CALayer *pageReveal;
-	CALayer *pageFrontShadow;
-	CALayer *pageBackShadow;
+	CAGradientLayer *pageFrontShadow;
+	CAGradientLayer *pageBackShadow;
 	CALayer *pageFacingShadow;
 	CALayer *pageRevealShadow;
 	
@@ -219,17 +219,29 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	[pageBack setContents:(id)[pageBackImage CGImage]];
 	
 	// Create shadow layers
-	pageFrontShadow = [CALayer layer];
+	pageFrontShadow = [CAGradientLayer layer];
 	[pageFront addSublayer:pageFrontShadow];
 	pageFrontShadow.frame = CGRectInset(pageFront.bounds, insets.left, insets.top);
-	pageFrontShadow.backgroundColor = [self flipShadowColor].CGColor;
 	pageFrontShadow.opacity = 0.0;
+	if (forwards)
+		pageFrontShadow.colors = [NSArray arrayWithObjects:(id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], (id)[self flipShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];
+	else
+		pageFrontShadow.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[self flipShadowColor].CGColor, (id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], nil];
+	pageFrontShadow.startPoint = CGPointMake(vertical? 0.5 : forwards? 0 : 0.5, vertical? forwards? 0 : 0.5 : 0.5);
+	pageFrontShadow.endPoint = CGPointMake(vertical? 0.5 : forwards? 0.5 : 1, vertical? forwards? 0.5 : 1 : 0.5);
+	pageFrontShadow.locations = [NSArray arrayWithObjects:[NSNumber numberWithDouble:0], [NSNumber numberWithDouble:forwards? 0.1 : 0.9], [NSNumber numberWithDouble:1], nil];
 	
-	pageBackShadow = [CALayer layer];
+	pageBackShadow = [CAGradientLayer layer];
 	[pageBack addSublayer:pageBackShadow];
 	pageBackShadow.frame = CGRectInset(pageBack.bounds, insets.left, insets.top);
-	pageBackShadow.backgroundColor = [self flipShadowColor].CGColor;
 	pageBackShadow.opacity = [self flippingPageShadowOpacity];
+	if (forwards)
+		pageBackShadow.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[self flipShadowColor].CGColor, (id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], nil];
+	else
+		pageBackShadow.colors = [NSArray arrayWithObjects:(id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], (id)[self flipShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];
+	pageBackShadow.startPoint = CGPointMake(vertical? 0.5 : forwards? 0.5 : 0, vertical? forwards? 0.5 : 0 : 0.5);
+	pageBackShadow.endPoint = CGPointMake(vertical? 0.5 : forwards? 1 : 0.5, vertical? forwards? 1 : 0.5 : 0.5);
+	pageBackShadow.locations = [NSArray arrayWithObjects:[NSNumber numberWithDouble:0], [NSNumber numberWithDouble:forwards? 0.9 : 0.1], [NSNumber numberWithDouble:1], nil];
 	
 	if (!inward)
 	{
