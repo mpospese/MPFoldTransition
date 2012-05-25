@@ -258,7 +258,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		pageFacingShadow.opacity = 0.0;
 	}
 	
-	NSUInteger frameCount = ceilf((self.duration / 2) * 30); // 30 FPS should be fine for opacity changes
+	NSUInteger frameCount = ceilf((self.duration / 2) * 60); // Let's shoot for 60 FPS to ensure proper sine curve approximation
 	// (I would use 60 FPS if we were animating size/shape/position/rotation via keyframes)
 	
 	// Perspective is best proportional to the height of the pieces being folded away, rather than a fixed value
