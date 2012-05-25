@@ -252,7 +252,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		pageRevealShadow.opacity = [self coveredPageShadowOpacity];
 		
 		pageFacingShadow = [CALayer layer];
-		[pageFacing addSublayer:pageFacingShadow];
+		//[pageFacing addSublayer:pageFacingShadow]; // add later
 		pageFacingShadow.frame = pageFacing.bounds;
 		pageFacingShadow.backgroundColor = [self flipShadowColor].CGColor;
 		pageFacingShadow.opacity = 0.0;
@@ -282,8 +282,16 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	[CATransaction setValue:[CAMediaTimingFunction functionWithName:[self timingCurveFunctionNameFirstHalf]] forKey:kCATransactionAnimationTimingFunction];
 	[CATransaction setCompletionBlock:^{
 		// Second half of animation
+		pageBack.transform = CATransform3DMakeRotation(-90*factor, vertical? 1 : 0, vertical? 0 : 1, 0); // pre-rotate layer
+		
+		// don't animate adding/removing sublayers
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 		[pageFront removeFromSuperlayer];
+		[pageRevealShadow removeFromSuperlayer];
 		[mainView.layer addSublayer:pageBack];
+		[pageFacing addSublayer:pageFacingShadow];
+		[CATransaction commit];
 		
 		[CATransaction begin];
 		[CATransaction setValue:[NSNumber numberWithFloat:self.duration/2] forKey:kCATransactionAnimationDuration];
