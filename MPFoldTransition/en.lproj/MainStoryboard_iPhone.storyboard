@@ -102,6 +102,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="HSa-mD-uY9" id="Fnj-vu-ntt"/>
+                        <outlet property="modeSegment" destination="qtm-Cg-4aA" id="ibx-Sd-nGh"/>
                     </connections>
                 </viewController>
             </objects>
@@ -528,37 +529,6 @@
             <point key="canvasLocation" x="859" y="62"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AboutViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed:"/>
-            </relationships>
-        </class>
-        <class className="DetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="popPressed:"/>
-            </relationships>
-        </class>
-        <class className="StyleTable" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StyleTable.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed:"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="detailPressed:"/>
-                <relationship kind="action" name="infoPressed:"/>
-                <relationship kind="action" name="modeValueChanged:"/>
-                <relationship kind="action" name="stepperValueChanged:"/>
-                <relationship kind="action" name="stylePressed:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

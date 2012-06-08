@@ -34,6 +34,7 @@
 @synthesize foldStyle = _foldStyle;
 @synthesize flipStyle = _flipStyle;
 @synthesize contentView = _contentView;
+@synthesize modeSegment = _modeSegment;
 @synthesize popover = _popover;
 
 - (id)init
@@ -73,7 +74,7 @@
 
 - (void)doInit
 {
-	_mode = MPTransitionModeFold;
+	_mode = MPTransitionModeFlip;
 	_foldStyle = MPFoldStyleCubic;
 	_flipStyle = MPFlipStyleDefault;
 }
@@ -115,13 +116,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	
+	[self.modeSegment setSelectedSegmentIndex:(int)[self mode]];
 	[self.contentView addSubview:[self getLabelForIndex:0]];
 }
 
 - (void)viewDidUnload
 {
     [self setContentView:nil];
+	[self setModeSegment:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

@@ -26,6 +26,7 @@ enum {
 @property (readonly, nonatomic) BOOL isFold;
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegment;
 
 - (IBAction)stepperValueChanged:(id)sender;
 - (IBAction)stylePressed:(UIBarButtonItem *)sender;

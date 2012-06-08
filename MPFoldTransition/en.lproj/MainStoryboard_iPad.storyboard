@@ -426,6 +426,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="contentView" destination="dPQ-si-lBp" id="kmC-XW-Ckr"/>
+                        <outlet property="modeSegment" destination="tH2-oi-S73" id="zmY-nV-pSH"/>
                     </connections>
                 </viewController>
             </objects>
@@ -539,37 +540,6 @@
             <point key="canvasLocation" x="751" y="747"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AboutViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed:"/>
-            </relationships>
-        </class>
-        <class className="DetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="popPressed:"/>
-            </relationships>
-        </class>
-        <class className="StyleTable" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StyleTable.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed:"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="detailPressed:"/>
-                <relationship kind="action" name="infoPressed:"/>
-                <relationship kind="action" name="modeValueChanged:"/>
-                <relationship kind="action" name="stepperValueChanged:"/>
-                <relationship kind="action" name="stylePressed:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
