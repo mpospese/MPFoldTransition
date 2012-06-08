@@ -123,3 +123,34 @@
 }
 
 @end
+
+#pragma mark - UIView extensions
+
+@implementation UIView(MPAnimation)
+
++ (BOOL)subView:(UIView *)subView1 isAboveSubView:(UIView *)subView2
+{
+	UIView *superview = [subView1 superview];
+	int index1 = [[superview subviews] indexOfObject:subView1];
+	int index2 = [[superview subviews] indexOfObject:subView2];
+	if (index2 == NSNotFound)
+		[NSException raise:@"Invalid Operation" format:@"Both views must have the same superview"];
+	return index1 > index2;
+}
+
++ (BOOL)subView:(UIView *)subView1 isBelowSubView:(UIView *)subView2
+{
+	return [self subView:subView2 isAboveSubView:subView1];
+}
+
+- (BOOL)isAboveSiblingView:(UIView *)siblingView
+{
+	return [UIView subView:self isAboveSubView:siblingView];
+}
+
+- (BOOL)isBelowSiblingView:(UIView *)siblingView
+{
+	return [UIView subView:siblingView isAboveSubView:self];
+}
+
+@end

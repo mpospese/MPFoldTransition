@@ -46,3 +46,14 @@ typedef void (^CompletionBlock)(BOOL);
 + (NSTimeInterval)defaultDuration;
 
 @end
+
+#pragma mark - UIView extensions
+
+@interface UIView(MPAnimation)
+
++ (BOOL)subView:(UIView *)subView1 isAboveSubView:(UIView *)subView2;
++ (BOOL)subView:(UIView *)subView1 isBelowSubView:(UIView *)subView2;
+- (BOOL)isAboveSiblingView:(UIView *)siblingView;
+- (BOOL)isBelowSiblingView:(UIView *)siblingView;
+
+@end

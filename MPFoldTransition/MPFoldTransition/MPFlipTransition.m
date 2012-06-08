@@ -18,11 +18,15 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 
 @interface MPFlipTransition()
 
+@property (assign, nonatomic, getter = wasDestinationViewShown) BOOL destinationViewShown;
+
 @end
 
 @implementation MPFlipTransition
 
 #pragma mark - Properties
+
+@synthesize destinationViewShown = _destinationViewShown;
 
 @synthesize style = _style;
 @synthesize coveredPageShadowOpacity = _coveredPageShadowOpacity;
@@ -145,11 +149,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// back Page   = the half of the next view that appears on the flipping page during 2nd half
 	// reveal Page = the other half of the next view (doesn't move, gets revealed by front page during 1st half)
 	UIImage *pageFrontImage = [MPAnimation renderImageFromView:self.sourceView withRect:forwards? lowerRect : upperRect transparentInsets:insets];
-	// TODO: facing doesn't need insets
-	UIImage *pageFacingImage = [MPAnimation renderImageFromView:self.sourceView withRect:forwards? upperRect : lowerRect];
-		
-	UIImage *pageBackImage = [MPAnimation renderImageFromView:self.destinationView withRect:forwards? destUpperRect : destLowerRect transparentInsets:insets];
-	UIImage *pageRevealImage = [MPAnimation renderImageFromView:self.destinationView withRect:forwards? destLowerRect : destUpperRect];
+
 	
 	UIView *actingSource = [self sourceView]; // the view that is already part of the view hierarchy
 	UIView *containerView = [actingSource superview];
@@ -160,7 +160,54 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		actingSource = [self destinationView];
 		containerView = [actingSource superview];
 	}
-	[actingSource setHidden:YES];
+	
+	BOOL isDestinationViewAbove = YES;
+	BOOL isModal = [containerView isKindOfClass:[UIWindow class]];
+	BOOL drawFacing = NO, drawReveal = NO;
+
+	switch (self.completionAction)
+	{
+		case MPTransitionActionAddRemove:
+			if (!isModal)
+				[self.destinationView setFrame:[self.sourceView frame]];
+			[containerView addSubview:self.destinationView];
+			break;
+			
+		case MPTransitionActionShowHide:
+			[self.destinationView setHidden:NO];
+			isDestinationViewAbove = [self.destinationView isAboveSiblingView:self.sourceView];
+			break;
+			
+		case MPTransitionActionNone:
+			if ([self.destinationView superview] == [self.sourceView superview])
+			{
+				isDestinationViewAbove = [self.destinationView isAboveSiblingView:self.sourceView];
+				if ([self.destinationView isHidden])
+				{
+					[self.destinationView setHidden:NO];
+					[self setDestinationViewShown:YES];
+				}
+			}
+			else if (![self.sourceView superview])
+			{
+				drawFacing = YES;
+			}
+			else
+			{
+				drawReveal = YES;
+				if ([self.destinationView isHidden])
+				{
+					[self.destinationView setHidden:NO];
+					[self setDestinationViewShown:YES];
+				}
+			}
+			break;
+	}
+	
+	UIImage *pageFacingImage = drawFacing? [MPAnimation renderImageFromView:self.sourceView withRect:forwards? upperRect : lowerRect] : nil;
+	
+	UIImage *pageBackImage = [MPAnimation renderImageFromView:self.destinationView withRect:forwards? destUpperRect : destLowerRect transparentInsets:insets];
+	UIImage *pageRevealImage = drawReveal? [MPAnimation renderImageFromView:self.destinationView withRect:forwards? destLowerRect : destUpperRect] : nil;
 	
 	CATransform3D transform = CATransform3DIdentity;
 	CALayer *pageFront;
@@ -180,30 +227,39 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// view to hold all our sublayers
 	CGRect mainRect = [containerView convertRect:self.rect fromView:actingSource];
 	CGPoint center = (CGPoint){CGRectGetMidX(mainRect), CGRectGetMidY(mainRect)};
-	if ([containerView isKindOfClass:[UIWindow class]])
+	if (isModal)
 		mainRect = [actingSource convertRect:mainRect fromView:nil];
 	mainView = [[UIView alloc] initWithFrame:mainRect];
 	mainView.backgroundColor = [UIColor clearColor];
 	mainView.transform = actingSource.transform;
-	[containerView insertSubview:mainView atIndex:0];
-	if ([containerView isKindOfClass:[UIWindow class]])
+	mainView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+	[containerView addSubview:mainView];
+	if (isModal)
 	{
 		[mainView.layer setPosition:center];
 	}
 	
 	pageReveal = [CALayer layer];
-	pageReveal.frame = (CGRect){CGPointZero, pageRevealImage.size};
+	pageReveal.frame = (CGRect){CGPointZero, drawReveal? pageRevealImage.size : forwards? destLowerRect.size : destUpperRect.size};
 	pageReveal.anchorPoint = CGPointMake(vertical? 0.5 : forwards? 0 : 1, vertical? forwards? 0 : 1 : 0.5);
 	pageReveal.position = CGPointMake(vertical? width/2 : upperHeight, vertical? upperHeight : width/2);
-	[pageReveal setContents:(id)[pageRevealImage CGImage]];
+	if (drawReveal)
+		[pageReveal setContents:(id)[pageRevealImage CGImage]];
 	[mainView.layer addSublayer:pageReveal];
 	
 	pageFacing = [CALayer layer];
-	pageFacing.frame = (CGRect){CGPointZero, pageFacingImage.size};
+	pageFacing.frame = (CGRect){CGPointZero, drawFacing? pageFacingImage.size : forwards? upperRect.size : lowerRect.size};
 	pageFacing.anchorPoint = CGPointMake(vertical? 0.5 : forwards? 1 : 0, vertical? forwards? 1 : 0 : 0.5);
 	pageFacing.position = CGPointMake(vertical? width/2 : upperHeight, vertical? upperHeight : width/2);
-	[pageFacing setContents:(id)[pageFacingImage CGImage]];
+	if (drawFacing)
+		[pageFacing setContents:(id)[pageFacingImage CGImage]];
 	[mainView.layer addSublayer:pageFacing];
+	
+	CAShapeLayer *revealPageMask = [CAShapeLayer layer];
+	CGRect maskRect = (forwards == isDestinationViewAbove)? destLowerRect : destUpperRect;
+	revealPageMask.path = [[UIBezierPath bezierPathWithRect:maskRect] CGPath];
+	UIView *viewToMask = isDestinationViewAbove? self.destinationView : self.sourceView;
+	[viewToMask.layer setMask:revealPageMask];
 	
 	pageFront = [CALayer layer];
 	pageFront.frame = (CGRect){CGPointZero, pageFrontImage.size};
@@ -299,7 +355,12 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		[CATransaction setCompletionBlock:^{
 			// This is the final completion block, when 2nd half of animation finishes
 			[mainView removeFromSuperview];
+			[CATransaction begin];
+			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+			[revealPageMask removeFromSuperlayer]; // don't animate
+			[CATransaction commit];
 			[self transitionDidComplete];
+			
 			if (completion)
 				completion(YES); // execute the completion block that was passed in
 		}];
@@ -392,6 +453,25 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	
 	// Commit the transaction for 1st half
 	[CATransaction commit];
+}
+
+- (void)transitionDidComplete
+{
+	switch (self.completionAction) {
+		case MPTransitionActionAddRemove:
+			[self.sourceView removeFromSuperview];
+			break;
+			
+		case MPTransitionActionShowHide:
+			[self.sourceView setHidden:YES];
+			break;
+			
+		case MPTransitionActionNone:
+			// undo whatever actions we took during animation
+			if ([self wasDestinationViewShown])
+				[self.destinationView setHidden:YES];
+			break;
+	}
 }
 
 #pragma mark - Class methods
