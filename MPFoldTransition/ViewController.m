@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  MPTransition (v 1.1.0)
+//  MPTransition (v 1.1.4)
 //
 //  Created by Mark Pospesel on 4/20/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
@@ -74,7 +74,7 @@
 
 - (void)doInit
 {
-	_mode = MPTransitionModeFlip;
+	_mode = MPTransitionModeFold;
 	_foldStyle = MPFoldStyleCubic;
 	_flipStyle = MPFlipStyleDefault;
 }
