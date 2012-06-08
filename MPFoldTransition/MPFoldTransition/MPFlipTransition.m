@@ -1,6 +1,6 @@
 //
 //  MPFlipTransition.m
-//  MPTransition (v1.1.3)
+//  MPTransition (v1.1.4)
 //
 //  Created by Mark Pospesel on 5/15/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.

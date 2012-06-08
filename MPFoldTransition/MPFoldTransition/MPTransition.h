@@ -1,6 +1,6 @@
 //
 //  MPTransition.h
-//  MPFoldTransition (v1.0.2)
+//  MPFoldTransition (v1.1.4)
 //
 //  Created by Mark Pospesel on 5/14/12.
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
