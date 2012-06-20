@@ -30,6 +30,14 @@
 // performs the flip animation
 - (void)perform:(void (^)(BOOL finished))completion;
 
+// set view to any position within the 1st half of the animation
+// progress ranges from 0 (start) to 1 (complete)
+- (void)doFlip1:(CGFloat)progress;
+
+// set view to any position within the 2nd half of the animation
+// progress ranges from 0 (start) to 1 (complete)
+- (void)doFlip2:(CGFloat)progress;
+
 #pragma mark - Class methods
 
 // For generic UIViewController transitions
