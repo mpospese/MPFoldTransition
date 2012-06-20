@@ -24,6 +24,10 @@
 
 #pragma mark - Instance methods
 
+// builds the layers for the flip animation
+- (void)buildLayers;
+
+// performs the flip animation
 - (void)perform:(void (^)(BOOL finished))completion;
 
 #pragma mark - Class methods
