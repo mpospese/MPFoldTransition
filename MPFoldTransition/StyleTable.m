@@ -132,6 +132,7 @@
 	NSUInteger newStyle = ([self style] & ~(1 << section)) | (row << section);
 	[self setStyle:newStyle];
 	[[self styleDelegate] styleDidChange:self.style];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction)donePressed:(id)sender {
