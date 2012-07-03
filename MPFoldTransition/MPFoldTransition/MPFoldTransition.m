@@ -144,10 +144,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	CALayer *upperFold;
 	CALayer *lowerFold;
 	CALayer *bottomSleeve;
-	CALayer *topSleeveShadow;
-	CALayer *upperFoldShadow;
-	CALayer *lowerFoldShadow;
-	CALayer *bottomSleeveShadow;
+	CAGradientLayer *topSleeveShadow;
+	CAGradientLayer *upperFoldShadow;
+	CAGradientLayer *lowerFoldShadow;
+	CAGradientLayer *bottomSleeveShadow;
 	UIView *mainView;
 	CGFloat width = vertical? bounds.size.width : bounds.size.height;
 	CGFloat height = vertical? bounds.size.height/2 : bounds.size.width/2;
@@ -227,31 +227,43 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	firstJointLayer.position = CGPointMake(vertical? width/2 : 0, vertical? 0 : width / 2);
 	
 	// Shadow layers to add shadowing to the 2 folding panels
-	upperFoldShadow = [CALayer layer];
+	upperFoldShadow = [CAGradientLayer layer];
 	[upperFold addSublayer:upperFoldShadow];
 	upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
-	upperFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
+	//upperFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
+	upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];	
+	upperFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
+	upperFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	upperFoldShadow.opacity = 0;
 	
-	lowerFoldShadow = [CALayer layer];
+	lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:lowerFoldShadow];
 	lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
-	lowerFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
+	//lowerFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
+	lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
+	lowerFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
+	lowerFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	lowerFoldShadow.opacity = 0;
 	
 	if (cubic)
 	{
 		// add shadow layers to top and bottom sleeves as well
-		topSleeveShadow = [CALayer layer];
+		topSleeveShadow = [CAGradientLayer layer];
 		[topSleeve addSublayer:topSleeveShadow];
 		topSleeveShadow.frame = CGRectInset(topSleeve.bounds, slideInsets.left, slideInsets.top);
-		topSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
+		//topSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
+		topSleeveShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
+		topSleeveShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
+		topSleeveShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 		topSleeveShadow.opacity = 0;
 		
-		bottomSleeveShadow = [CALayer layer];
+		bottomSleeveShadow = [CAGradientLayer layer];
 		[bottomSleeve addSublayer:bottomSleeveShadow];
 		bottomSleeveShadow.frame = CGRectInset(bottomSleeve.bounds, slideInsets.left, slideInsets.top);
-		bottomSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
+		//bottomSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
+		bottomSleeveShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
+		bottomSleeveShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
+		bottomSleeveShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 		bottomSleeveShadow.opacity = 0;
 	}
 	
@@ -351,8 +363,8 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	[upperFoldShadow addAnimation:animation forKey:nil];
 	
 	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowAdjustmentFactor] * [self foldShadowOpacity]]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:[self foldShadowAdjustmentFactor] * [self foldShadowOpacity]] : [NSNumber numberWithDouble:0]]; // use slightly different opacities for the 2 halves
+	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
+	[animation setToValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]]; // use slightly different opacities for the 2 halves
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[lowerFoldShadow addAnimation:animation forKey:nil];
