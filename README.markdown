@@ -1,7 +1,9 @@
 MPTransition
 =====================
-__Update__: MPTransition now comprises MPFoldTransition and MPFlipTransition
-
+__Update__: MPTransition now comprises MPFoldTransition and MPFlipTransition  
+  
+__Update 2__: For a touch gesture-enabled container controller with page-flipping (not just a transition), see [MPFlipViewController](https://github.com/mpospese/MPFlipViewController)  
+  
 MPFoldTransition is a set of classes to add folding-style transitions to iOS 5 projects.  
 ![iPhone Fold](http://markpospesel.files.wordpress.com/2012/05/iphone-fold1.png)  
 MPFlipTransition is a set of classes to add page-flipping transitions to iOS 5 projects.  
