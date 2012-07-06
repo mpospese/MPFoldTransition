@@ -14,12 +14,16 @@
 
 #pragma mark - Properties
 
+// Fold style
 @property (assign, nonatomic) MPFoldStyle style;
-// Maximum shadow opacity (when fully folded)
+
+// Maximum shadow opacity (when fully folded), default = 0.25
 @property (assign, nonatomic) CGFloat foldShadowOpacity;
-// Adjustment factor to differentiate between 2 adjacent shadows (0 to 1, 1 = no difference)
-@property (assign, nonatomic) CGFloat foldShadowAdjustmentFactor;
+
+// Fold shadow color, default = black
 @property (strong, nonatomic) UIColor *foldShadowColor;
+
+#pragma mark - init methods
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration style:(MPFoldStyle)style completionAction:(MPTransitionAction)action;
 

@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
-#define DEFAULT_SHADOW_OPACITY 0.5
-#define DEFAULT_SHADOW_ADJUSTMENT_FACTOR 0.9
+#define DEFAULT_SHADOW_OPACITY 0.25
 
 #import "MPFoldTransition.h"
 #import "MPAnimation.h"
@@ -26,7 +25,6 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 
 @synthesize style = _style;
 @synthesize foldShadowOpacity = _foldShadowOpacity;
-@synthesize foldShadowAdjustmentFactor = _foldShadowAdjustmentFactor;
 @synthesize foldShadowColor = _foldShadowColor;
 
 #pragma mark - init
@@ -37,7 +35,6 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	{
 		_style = style;		
 		_foldShadowOpacity = DEFAULT_SHADOW_OPACITY;
-		_foldShadowAdjustmentFactor = DEFAULT_SHADOW_ADJUSTMENT_FACTOR;
 		_foldShadowColor = [UIColor blackColor];
 	}
 	
@@ -230,7 +227,6 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	upperFoldShadow = [CAGradientLayer layer];
 	[upperFold addSublayer:upperFoldShadow];
 	upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
-	//upperFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
 	upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];	
 	upperFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 	upperFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
@@ -239,8 +235,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:lowerFoldShadow];
 	lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
-	//lowerFoldShadow.backgroundColor = [self foldShadowColor].CGColor;
-	lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
+	// in non-cubic mode, don't set gradient end color as clear, but rather shadow color at alpha = 0.2
+	// This keeps a visible crease between lower fold panel and bottom sleeve panel (no shadow)
+	// (Not necessary in cubic mode because bottom panel will have its own gradient shadow to create contrast between the 2 panels)
+	lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[(cubic? [UIColor clearColor] : [[self foldShadowColor] colorWithAlphaComponent:0.2]) CGColor], nil];		
 	lowerFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 	lowerFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	lowerFoldShadow.opacity = 0;
@@ -251,7 +249,6 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		topSleeveShadow = [CAGradientLayer layer];
 		[topSleeve addSublayer:topSleeveShadow];
 		topSleeveShadow.frame = CGRectInset(topSleeve.bounds, slideInsets.left, slideInsets.top);
-		//topSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
 		topSleeveShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
 		topSleeveShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 		topSleeveShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
@@ -260,7 +257,6 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		bottomSleeveShadow = [CAGradientLayer layer];
 		[bottomSleeve addSublayer:bottomSleeveShadow];
 		bottomSleeveShadow.frame = CGRectInset(bottomSleeve.bounds, slideInsets.left, slideInsets.top);
-		//bottomSleeveShadow.backgroundColor = [self foldShadowColor].CGColor;
 		bottomSleeveShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
 		bottomSleeveShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 		bottomSleeveShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
@@ -332,17 +328,33 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		[topSleeve addAnimation:animation forKey:nil];
 	}
 	
-	// Build an array of keyframes for perspectiveLayer.bounds.size.height
+	// Build an array of keyframes for perspectiveLayer.bounds.size.height, and also for shadows
 	NSMutableArray* arrayHeight = [NSMutableArray arrayWithCapacity:frameCount + 1];
+	NSMutableArray* arrayShadow = [NSMutableArray arrayWithCapacity:frameCount + 1];
+	NSMutableArray* arrayCubicShadow = cubic? [NSMutableArray arrayWithCapacity:frameCount + 1] : nil;
 	CGFloat progress;
+	CGFloat cosine, sine;
 	CGFloat cosHeight;
+	CGFloat shadowOpacity = [self foldShadowOpacity];
 	for (int frame = 0; frame <= frameCount; frame++)
 	{
 		progress = (((float)frame) / frameCount);
-		cosHeight = ((forwards? cos(mp_radians(90 * progress)) : sin(mp_radians(90 * progress)))* 2*height); // range from 2*height to 0 along a cosine curve
+		cosine = forwards? cos(mp_radians(90 * progress)) : sin(mp_radians(90 * progress));
 		if ((forwards && frame == frameCount) || (!forwards && frame == 0))
-			cosHeight = 0;
+			cosine = 0;
+		cosHeight = cosine * 2 * height; // range from 2*height to 0 along a cosine curve
 		[arrayHeight addObject:[NSNumber numberWithFloat:cosHeight]];
+		
+		// fold panel shadow intensity is inversely proportional to its height
+		[arrayShadow addObject:[NSNumber numberWithFloat:((1-cosine) * shadowOpacity)]];
+		if (cubic)
+		{
+			sine = forwards? sin(mp_radians(90 * progress)) : cos(mp_radians(90 * progress));
+			if ((forwards && frame == 0) || (!forwards && frame == frameCount))
+				sine = 0;
+			// sleeve panel shadow intensity is inversely proportional to its height
+			[arrayCubicShadow addObject:[NSNumber numberWithFloat:((1-sine) * shadowOpacity)]];
+		}
 	}
 	
 	// resize height of the 2 folding panels along a cosine curve.  This is necessary to maintain the 2nd joint in the center
@@ -354,36 +366,32 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	[perspectiveLayer addAnimation:keyAnimation forKey:nil];
 	
 	// Dim the 2 folding panels as they fold away from us
-	// Note that 2 slightly different endpoint opacities are used to help distinguish the upper and lower panels
-	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]];
-	[animation setFillMode:kCAFillModeForwards];
-	[animation setRemovedOnCompletion:NO];
-	[upperFoldShadow addAnimation:animation forKey:nil];
+	// The gradients create a crease effect between adjacent panels
+	keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+	[keyAnimation setValues:[NSArray arrayWithArray:arrayShadow]];
+	[keyAnimation setFillMode:kCAFillModeForwards];
+	[keyAnimation setRemovedOnCompletion:NO];
+	[upperFoldShadow addAnimation:keyAnimation forKey:nil];
 	
-	animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]]; // use slightly different opacities for the 2 halves
-	[animation setFillMode:kCAFillModeForwards];
-	[animation setRemovedOnCompletion:NO];
-	[lowerFoldShadow addAnimation:animation forKey:nil];
+	keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+	[keyAnimation setValues:[NSArray arrayWithArray:arrayShadow]];
+	[keyAnimation setFillMode:kCAFillModeForwards];
+	[keyAnimation setRemovedOnCompletion:NO];
+	[lowerFoldShadow addAnimation:keyAnimation forKey:nil];
 	
 	if (cubic)
 	{
-		animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-		[animation setFromValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]];
-		[animation setToValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
-		[animation setFillMode:kCAFillModeForwards];
-		[animation setRemovedOnCompletion:NO];
-		[topSleeveShadow addAnimation:animation forKey:nil];
+		keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+		[keyAnimation setValues:[NSArray arrayWithArray:arrayCubicShadow]];
+		[keyAnimation setFillMode:kCAFillModeForwards];
+		[keyAnimation setRemovedOnCompletion:NO];
+		[topSleeveShadow addAnimation:keyAnimation forKey:nil];
 		
-		animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-		[animation setFromValue:forwards? [NSNumber numberWithDouble:[self foldShadowOpacity]] : [NSNumber numberWithDouble:0]];
-		[animation setToValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:[self foldShadowOpacity]]];
-		[animation setFillMode:kCAFillModeForwards];
-		[animation setRemovedOnCompletion:NO];
-		[bottomSleeveShadow addAnimation:animation forKey:nil];
+		keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+		[keyAnimation setValues:[NSArray arrayWithArray:arrayCubicShadow]];
+		[keyAnimation setFillMode:kCAFillModeForwards];
+		[keyAnimation setRemovedOnCompletion:NO];
+		[bottomSleeveShadow addAnimation:keyAnimation forKey:nil];
 	}
 	
 	// Commit the transaction
