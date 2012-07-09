@@ -185,7 +185,7 @@
 	
 	[container addSubview:label];
 	container.tag = index;
-	[container.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+	[container.layer setBorderColor:[[UIColor colorWithWhite:0.85 alpha:1] CGColor]];
 	[container.layer setBorderWidth:2];
 	
 	return container;
