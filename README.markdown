@@ -23,11 +23,11 @@ Fold Styles
 ---------
 Currently there are 3 style bits that can be combined for 8 different styles.
 * __Direction:__ Fold vs. Unfold  
-![Fold vs. Unfold](http://markpospesel.files.wordpress.com/2012/05/fold-vs-unfold.png)  
+![Fold vs. Unfold](http://markpospesel.files.wordpress.com/2012/05/fold-vs-unfold2.png)  
 * __Mode:__ Normal vs. Cubic  
-![Normal vs. Cubic](http://markpospesel.files.wordpress.com/2012/05/normal-vs-cubic.png)  
+![Normal vs. Cubic](http://markpospesel.files.wordpress.com/2012/05/normal-vs-cubic2.png)  
 * __Orientation:__ Vertical vs. Horizontal  
-![Vertical vs. Horizontal](http://markpospesel.files.wordpress.com/2012/05/vertical-vs-horizontal.png)  
+![Vertical vs. Horizontal](http://markpospesel.files.wordpress.com/2012/05/vertical-vs-horizontal2.png)  
 
 Flip Styles
 ---------
