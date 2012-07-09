@@ -235,10 +235,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	lowerFoldShadow = [CAGradientLayer layer];
 	[lowerFold addSublayer:lowerFoldShadow];
 	lowerFoldShadow.frame = CGRectInset(lowerFold.bounds, foldInsets.left, foldInsets.top);
-	// in non-cubic mode, don't set gradient end color as clear, but rather shadow color at alpha = 0.2
+	// in non-cubic mode, don't set gradient end color as clear, but rather shadow color at alpha = 0.25
 	// This keeps a visible crease between lower fold panel and bottom sleeve panel (no shadow)
 	// (Not necessary in cubic mode because bottom panel will have its own gradient shadow to create contrast between the 2 panels)
-	lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[(cubic? [UIColor clearColor] : [[self foldShadowColor] colorWithAlphaComponent:0.2]) CGColor], nil];		
+	lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[(cubic? [UIColor clearColor] : [[self foldShadowColor] colorWithAlphaComponent:0.25]) CGColor], nil];		
 	lowerFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 	lowerFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	lowerFoldShadow.opacity = 0;
