@@ -5,7 +5,7 @@ __Update__: MPTransition now comprises MPFoldTransition and MPFlipTransition
 __Update 2__: For a touch gesture-enabled container controller with page-flipping (not just a transition), see [MPFlipViewController](https://github.com/mpospese/MPFlipViewController)  
   
 MPFoldTransition is a set of classes to add folding-style transitions to iOS 5 projects.  
-![iPhone Fold](http://markpospesel.files.wordpress.com/2012/05/iphone-fold1.png)  
+![iPhone Fold](http://markpospesel.files.wordpress.com/2012/05/iphone-fold2.png)  
 MPFlipTransition is a set of classes to add page-flipping transitions to iOS 5 projects.  
 ![iPhone Flip](http://markpospesel.files.wordpress.com/2012/05/iphone-flip-3.png)  
 I built it using ARC (and for the demo portion storyboards) strictly for convenience, so it uses iOS 5.  I imagine the relevant code (minus the UIStoryboardSegue helper classes) could be easily ported to iOS 4.3 under ARC, or ported to iOS 4.0 with memory management inserted.  (_Hint:_ If you're porting to non-ARC, you'll need to retain [sourceView superView] in the init method.)
