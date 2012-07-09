@@ -49,6 +49,16 @@ Read Source Code License.rtf, but the gist is:
 * Anyone can use it for any type of project
 * All I ask for is attribution somewhere
 
+Support, bugs and feature requests
+----------------------------------
+There is absolutely no support offered with this component. You're on your own! If you want to submit a feature request, please do so via [the issue tracker on github](https://github.com/mpospese/MPFoldTransition/issues).  
+  
+If you want to submit a bug report, please also do so via the issue tracker, including a diagnosis of the problem and a suggested fix (in code). If you're using MPTransition, you're a developer - so I expect you to do your homework and provide a fix along with each bug report. You can also submit pull requests or patches.  
+  
+Please don't submit bug reports without fixes!  
+
+(The preceding blurb provided courtesy of the legendary [Matt Gemmell](https://github.com/mattgemmell/))
+
 Best,  
 Mark Pospesel
 
