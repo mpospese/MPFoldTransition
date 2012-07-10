@@ -39,6 +39,12 @@ Currently there are 3 style bits that can be combined for 8 different styles.
 * __Perspective:__ Normal vs. Reverse  
 ![Normal vs. Reverse](http://markpospesel.files.wordpress.com/2012/05/normal-vs-reverse-3.png)  
 
+Requirements
+-----------
+* Xcode 4.3 or higher
+* LLVM compiler
+* iOS 5 or higher
+
 How To Use
 ---------
 See the "MPFoldTransition.h" (and "MPFlipTransition.h") header file(s) for methods and use the demo project as a reference.  The Segue classes (under directory of the same name) are optional, only if you want to include storyboard support.  Otherwise you just need the classes under the bottommost MPFoldTransition directory.
