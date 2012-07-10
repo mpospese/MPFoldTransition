@@ -148,7 +148,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	BOOL vertical = ([self style] & MPFlipStyleOrientationMask) == MPFlipStyleOrientationVertical;
 	BOOL inward = ([self style] & MPFlipStylePerspectiveMask) == MPFlipStylePerspectiveReverse;
 	
-	CGRect bounds = self.rect;
+	CGRect bounds = [self calculateRect];
 	CGFloat scale = [[UIScreen mainScreen] scale];
 	
 	// we inset the panels 1 point on each side with a transparent margin to antialiase the edges
@@ -181,7 +181,12 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		lowerRect.origin.x += upperRect.size.width;
 	
 	if (![self isDimissing])
-		self.destinationView.bounds = (CGRect){CGPointZero, bounds.size};
+	{
+		if ([self presentedControllerIncludesStatusBarInFrame])
+			self.destinationView.bounds = CGRectMake(0, 0, bounds.size.width + bounds.origin.x, bounds.size.height + bounds.origin.y);
+		else
+			self.destinationView.bounds = (CGRect){CGPointZero, bounds.size};
+	}
 	
 	CGRect destUpperRect = CGRectOffset(upperRect, -upperRect.origin.x, -upperRect.origin.y);
 	CGRect destLowerRect = CGRectOffset(lowerRect, -upperRect.origin.x, -upperRect.origin.y);
@@ -194,7 +199,15 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		destLowerRect.origin.x += x;
 		destUpperRect.origin.y += y;
 		destLowerRect.origin.y += y;
-		[self setRect:CGRectOffset([self rect], x, y)];
+		if (![self presentedControllerIncludesStatusBarInFrame])
+			[self setRect:CGRectOffset([self rect], x, y)];
+	}
+	else if ([self presentedControllerIncludesStatusBarInFrame])
+	{
+		destUpperRect.origin.x += bounds.origin.x;
+		destLowerRect.origin.x += bounds.origin.x;
+		destUpperRect.origin.y += bounds.origin.y;
+		destLowerRect.origin.y += bounds.origin.y;
 	}
 	
 	// Create 4 images to represent 2 halves of the 2 views
@@ -685,6 +698,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	MPFlipTransition *flipTransition = [[MPFlipTransition alloc] initWithSourceView:presentingController.view destinationView:viewControllerToPresent.view duration:duration style:style completionAction:MPTransitionActionNone];
 	
 	[flipTransition setPresentingController:presentingController];
+	[flipTransition setPresentedController:viewControllerToPresent];
 	
 	[flipTransition perform:^(BOOL finished) {
 		// under iPad for our fold transition, we need to be full screen modal (iPhone is always full screen modal)
@@ -722,6 +736,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	
 	MPFlipTransition *flipTransition = [[MPFlipTransition alloc] initWithSourceView:src.view destinationView:dest.view duration:duration style:style completionAction:MPTransitionActionNone];
 	[flipTransition setDismissing:YES];
+	[flipTransition setPresentedController:src];
 	[presentingController dismissViewControllerAnimated:NO completion:nil];
 	[flipTransition perform:^(BOOL finished) {
 		[dest.view setHidden:NO];

@@ -22,6 +22,8 @@ typedef void (^CompletionBlock)(BOOL);
 @property (assign, nonatomic) CGRect rect;
 @property (assign, nonatomic) MPTransitionAction completionAction;
 @property (assign, nonatomic) UIViewAnimationCurve timingCurve;
+@property (readonly, nonatomic) BOOL presentedControllerIncludesStatusBarInFrame;
+
 // Perspective component of transformation (Advanced use only, generally don't need to adjust)
 @property (assign, nonatomic) float m34;
 
@@ -40,6 +42,8 @@ typedef void (^CompletionBlock)(BOOL);
 - (NSString *)timingCurveFunctionName;
 - (void)transitionDidComplete;
 - (void)setPresentingController:(UIViewController *)presentingController;
+- (void)setPresentedController:(UIViewController *)presentedController;
+- (CGRect)calculateRect;
 
 #pragma mark - Class methods
 

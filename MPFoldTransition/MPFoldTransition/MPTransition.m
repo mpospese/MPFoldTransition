@@ -10,6 +10,13 @@
 
 #import "MPTransition.h"
 #import <QuartzCore/QuartzCore.h>
+
+@interface MPTransition ()
+
+@property (assign, nonatomic) BOOL presentedControllerIncludesStatusBarInFrame;
+
+@end
+
 @implementation MPTransition
 
 @synthesize sourceView = _sourceView;
@@ -20,6 +27,7 @@
 @synthesize timingCurve = _timingCurve;
 @synthesize dismissing = _dismissing;
 @synthesize m34 = _m34;
+@synthesize presentedControllerIncludesStatusBarInFrame = _presentedControllerIncludesStatusBarInFrame;
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration timingCurve:(UIViewAnimationCurve)timingCurve completionAction:(MPTransitionAction)action {
 	self = [super init];
@@ -32,6 +40,7 @@
 		_timingCurve = timingCurve;
 		_completionAction = action;
 		_m34 = INFINITY;
+		_presentedControllerIncludesStatusBarInFrame = NO;
 	}
 	
 	return self;
@@ -113,6 +122,28 @@
 		frameViewRect.size.height -= statusBarViewRect.size.height;
 		[self setRect:frameViewRect];
 	}
+}
+
+- (void)setPresentedController:(UIViewController *)presentedController;
+{
+	[self setPresentedControllerIncludesStatusBarInFrame:[presentedController isKindOfClass:[UINavigationController class]]];
+}
+
+- (CGRect)calculateRect
+{
+	CGRect bounds = self.rect;
+	if ([self isDimissing] && [self presentedControllerIncludesStatusBarInFrame])
+	{
+		// we need to remove status bar height from rect (e.g. is UINavigationController)
+		CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+		CGRect statusBarWindowRect = [self.destinationView.window convertRect:statusBarFrame fromWindow: nil];
+		CGRect statusBarViewRect = [self.destinationView convertRect:statusBarWindowRect fromView: nil];			
+		bounds.origin.y += statusBarViewRect.size.height;
+		bounds.size.height -= statusBarViewRect.size.height;
+		[self setRect:bounds];
+	}
+	
+	return bounds;
 }
 
 #pragma mark - Class methods

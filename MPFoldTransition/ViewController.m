@@ -243,11 +243,35 @@
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[AppDelegate storyboardName] bundle:nil];
 	AboutViewController *about = [storyboard instantiateViewControllerWithIdentifier:ABOUT_IDENTIFIER];
 	[about setModalDelegate:self];
-
+	about.title = @"About";
+	UIViewController *presented = about;
+	
+	/*int i = arc4random_uniform(3);
+	switch (i) {
+		case 1:
+			// Embed in nav controller
+			presented = [[UINavigationController alloc] initWithRootViewController:about];
+			break;
+			
+		case 2:
+		{
+			// Embed in tab controller along with Details screen
+			DetailsViewController *details = [storyboard instantiateViewControllerWithIdentifier:DETAILS_IDENTIFIER];
+			[details setFold:[self isFold]];
+			[details setStyle:[self style]];
+			details.title = @"Details";
+			UITabBarController *tab = [[UITabBarController alloc] init];
+			[tab setViewControllers:[NSArray arrayWithObjects:about, details, nil] animated:NO];
+			[tab setSelectedIndex:arc4random_uniform(2)];
+			presented = tab;
+		}
+			break;
+	}*/
+	
 	if ([self isFold])
-		[self presentViewController:about foldStyle:[self foldStyle] completion:nil];
+		[self presentViewController:presented foldStyle:[self foldStyle] completion:nil];
 	else
-		[self presentViewController:about flipStyle:[self flipStyle] completion:nil];
+		[self presentViewController:presented flipStyle:[self flipStyle] completion:nil];
 }
 
 - (IBAction)stylePressed:(id)sender {
