@@ -528,4 +528,24 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	return toController;
 }
 
+- (NSArray*)popToRootViewControllerWithFoldStyle:(MPFoldStyle)style
+{
+	UIViewController* toController = [self topViewController];
+	
+	NSMutableArray* popped = [NSMutableArray array];
+	for(int i = 1; i < [[self viewControllers] count]; i++)
+		[popped addObject:[[self viewControllers] objectAtIndex:i]];
+	
+	[MPFoldTransition transitionFromViewController:[self visibleViewController]
+								  toViewController:toController
+										  duration:[MPFoldTransition defaultDuration]
+											 style:style
+										completion:^(BOOL finished) {
+											[self popToRootViewControllerAnimated:NO];
+										}
+	 ];
+	
+	return popped;
+}
+
 @end
