@@ -84,4 +84,7 @@
 //- (UIViewController *)popViewControllerAnimated:(BOOL)animated;
 - (UIViewController *)popViewControllerWithFlipStyle:(MPFlipStyle)style;
 
+//- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated;
+- (NSArray*)popToRootViewControllerWithFlipStyle:(MPFlipStyle)style;
+
 @end
