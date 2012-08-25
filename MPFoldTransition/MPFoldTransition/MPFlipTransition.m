@@ -798,7 +798,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 
 - (NSArray*)popToRootViewControllerWithFlipStyle:(MPFlipStyle)style
 {
-	UIViewController* toController = [self topViewController];
+	UIViewController* toController = [[self viewControllers] objectAtIndex:0];	//to rootViewController
 	
 	NSMutableArray* popped = [NSMutableArray array];
 	for(int i = 1; i < [[self viewControllers] count]; i++)
