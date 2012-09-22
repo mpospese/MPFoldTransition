@@ -41,7 +41,7 @@ Currently there are 3 style bits that can be combined for 8 different styles.
 
 Requirements
 -----------
-* Xcode 4.3 or higher
+* Xcode 4.4 or higher
 * LLVM compiler
 * iOS 5 or higher
 
