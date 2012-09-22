@@ -30,6 +30,7 @@
 		4DBDFA4115416BDA003AD415 /* MPFoldNavPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3915416BAD003AD415 /* MPFoldNavPushSegue.m */; };
 		4DBDFA4215416BDA003AD415 /* MPFoldSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3B15416BAD003AD415 /* MPFoldSegue.m */; };
 		4DBDFA4315416BDA003AD415 /* MPFoldTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */; };
+		4DC8CD04160456BB00C42353 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC8CD03160456BB00C42353 /* Default-568h@2x.png */; };
 		4DEBF71A1562587100553D98 /* MPFlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF7191562587100553D98 /* MPFlipTransition.m */; };
 		4DFA2F0F154FF49D004AF678 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A177154FEE8500B310CF /* AboutViewController.m */; };
 		4DFA2F11154FF4A1004AF678 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D63A179154FEE8600B310CF /* DetailsViewController.m */; };
@@ -81,6 +82,7 @@
 		4DBDFA3B15416BAD003AD415 /* MPFoldSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldSegue.m; sourceTree = "<group>"; };
 		4DBDFA3C15416BAD003AD415 /* MPFoldTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldTransition.h; sourceTree = "<group>"; };
 		4DBDFA3D15416BAD003AD415 /* MPFoldTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPFoldTransition.m; sourceTree = "<group>"; };
+		4DC8CD03160456BB00C42353 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4DDCC8E2154960C500489938 /* MPFoldEnumerations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPFoldEnumerations.h; sourceTree = "<group>"; };
 		4DEBF7181562587100553D98 /* MPFlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPFlipTransition.h; sourceTree = "<group>"; };
 		4DEBF7191562587100553D98 /* MPFlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPFlipTransition.m; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		4DBDF9F915415F09003AD415 = {
 			isa = PBXGroup;
 			children = (
+				4DC8CD03160456BB00C42353 /* Default-568h@2x.png */,
 				4DBDFA2C15415FE1003AD415 /* Demo */,
 				4DBDFA0E15415F0A003AD415 /* MPFoldTransition */,
 				4DBDFA0715415F0A003AD415 /* Frameworks */,
@@ -273,6 +276,7 @@
 				4DB9BF1F1553E36200718F74 /* Icon-72@2x.png in Resources */,
 				4DB9BF201553E36200718F74 /* Icon.png in Resources */,
 				4DB9BF211553E36200718F74 /* Icon@2x.png in Resources */,
+				4DC8CD04160456BB00C42353 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
