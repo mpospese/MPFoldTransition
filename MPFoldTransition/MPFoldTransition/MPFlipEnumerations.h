@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Mark Pospesel. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #ifndef MPFoldTransition_MPFlipEnumerations_h
 #define MPFoldTransition_MPFlipEnumerations_h
 
