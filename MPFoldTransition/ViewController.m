@@ -195,7 +195,7 @@
 {
 	// We want clipsToBounds == YES on the central contentView when fold style mode bit is not cubic
 	// Otherwise you see the top & bottom panels sliding out and looks weird
-	[self.contentView setClipsToBounds:[self isFold] && (([self foldStyle] & MPFoldStyleCubic) != MPFoldStyleCubic)];	
+	[self.contentView setClipsToBounds:[self isFold] && !([self foldStyle] & MPFoldStyleCubic)];
 }
 
 #pragma mark - Touch handlers

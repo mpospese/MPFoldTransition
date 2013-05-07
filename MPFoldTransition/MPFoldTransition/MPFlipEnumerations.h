@@ -36,6 +36,6 @@ typedef NSUInteger MPFlipStyle;
 #define MPFlipStyleOrientationMask	MPFlipStyleOrientationVertical
 #define MPFlipStylePerspectiveMask	MPFlipStylePerspectiveReverse
 
-static inline MPFlipStyle MPFlipStyleFlipDirectionBit(MPFlipStyle style) { return (style & ~MPFlipStyleDirectionMask) | ((style & MPFlipStyleDirectionMask) == MPFlipStyleDirectionBackward? 0 : MPFlipStyleDirectionBackward); }
+static inline MPFlipStyle MPFlipStyleFlipDirectionBit(MPFlipStyle style) { return style ^ MPFlipStyleDirectionMask; }
 
 #endif

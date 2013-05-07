@@ -31,6 +31,6 @@ enum {
 };
 typedef NSUInteger MPFoldStyle;
 
-static inline MPFoldStyle MPFoldStyleFlipFoldBit(MPFoldStyle style) { return (style & ~MPFoldStyleUnfold) | ((style & MPFoldStyleUnfold) == MPFoldStyleUnfold? 0 : MPFoldStyleUnfold); }
+static inline MPFoldStyle MPFoldStyleFlipFoldBit(MPFoldStyle style) { return style ^ MPFoldStyleUnfold; }
 
 #endif

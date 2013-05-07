@@ -30,10 +30,10 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 #pragma mark - init
 
 - (id)initWithSourceView:(UIView *)sourceView destinationView:(UIView *)destinationView duration:(NSTimeInterval)duration style:(MPFoldStyle)style completionAction:(MPTransitionAction)action {
-	self = [super initWithSourceView:sourceView destinationView:destinationView duration:duration timingCurve:(((style & MPFoldStyleUnfold) == MPFoldStyleUnfold)? UIViewAnimationCurveEaseIn : UIViewAnimationCurveEaseOut) completionAction:action];
+	self = [super initWithSourceView:sourceView destinationView:destinationView duration:duration timingCurve:((style & MPFoldStyleUnfold)? UIViewAnimationCurveEaseIn : UIViewAnimationCurveEaseOut) completionAction:action];
 	if (self)
 	{
-		_style = style;		
+		_style = style;
 		_foldShadowOpacity = DEFAULT_SHADOW_OPACITY;
 		_foldShadowColor = [UIColor blackColor];
 	}
@@ -45,9 +45,9 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 
 - (void)perform:(void (^)(BOOL finished))completion
 {
-	BOOL forwards = ([self style] & MPFoldStyleUnfold) != MPFoldStyleUnfold;
-	BOOL vertical = ([self style] & MPFoldStyleHorizontal) != MPFoldStyleHorizontal;
-	BOOL cubic = ([self style] & MPFoldStyleCubic) == MPFoldStyleCubic;
+	BOOL forwards = !([self style] & MPFoldStyleUnfold);
+	BOOL vertical = !([self style] & MPFoldStyleHorizontal);
+	BOOL cubic = [self style] & MPFoldStyleCubic;
 	
 	CGRect bounds = [self calculateRect];
 	CGFloat scale = [[UIScreen mainScreen] scale];
