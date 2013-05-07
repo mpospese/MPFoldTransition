@@ -240,7 +240,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	upperFoldShadow = [CAGradientLayer layer];
 	[upperFold addSublayer:upperFoldShadow];
 	upperFoldShadow.frame = CGRectInset(upperFold.bounds, foldInsets.left, foldInsets.top);
-	upperFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];	
+	upperFoldShadow.colors = @[(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor]];	
 	upperFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 	upperFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	upperFoldShadow.opacity = 0;
@@ -251,7 +251,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// in non-cubic mode, don't set gradient end color as clear, but rather shadow color at alpha = 0.25
 	// This keeps a visible crease between lower fold panel and bottom sleeve panel (no shadow)
 	// (Not necessary in cubic mode because bottom panel will have its own gradient shadow to create contrast between the 2 panels)
-	lowerFoldShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[(cubic? [UIColor clearColor] : [[self foldShadowColor] colorWithAlphaComponent:0.25]) CGColor], nil];		
+	lowerFoldShadow.colors = @[(id)[self foldShadowColor].CGColor, (id)[(cubic? [UIColor clearColor] : [[self foldShadowColor] colorWithAlphaComponent:0.25]) CGColor]];		
 	lowerFoldShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 	lowerFoldShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 	lowerFoldShadow.opacity = 0;
@@ -262,7 +262,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		topSleeveShadow = [CAGradientLayer layer];
 		[topSleeve addSublayer:topSleeveShadow];
 		topSleeveShadow.frame = CGRectInset(topSleeve.bounds, slideInsets.left, slideInsets.top);
-		topSleeveShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
+		topSleeveShadow.colors = @[(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor]];		
 		topSleeveShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 		topSleeveShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 		topSleeveShadow.opacity = 0;
@@ -270,7 +270,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		bottomSleeveShadow = [CAGradientLayer layer];
 		[bottomSleeve addSublayer:bottomSleeveShadow];
 		bottomSleeveShadow.frame = CGRectInset(bottomSleeve.bounds, slideInsets.left, slideInsets.top);
-		bottomSleeveShadow.colors = [NSArray arrayWithObjects:(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];		
+		bottomSleeveShadow.colors = @[(id)[self foldShadowColor].CGColor, (id)[[UIColor clearColor] CGColor]];		
 		bottomSleeveShadow.startPoint = CGPointMake(vertical? 0.5 : 0, vertical? 0 : 0.5);
 		bottomSleeveShadow.endPoint = CGPointMake(vertical? 0.5 : 1, vertical? 1 : 0.5);
 		bottomSleeveShadow.opacity = 0;
@@ -302,16 +302,16 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	double factor = (vertical? 1 : - 1) * M_PI / 180;
 	// fold the first (top) joint away from us
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:-90*factor]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:-90*factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards? @0.0 : @(-90*factor)];
+	[animation setToValue:forwards? @(-90*factor) : @0.0];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[firstJointLayer addAnimation:animation forKey:nil];
 	
 	// fold the second joint back towards us at twice the angle (since it's connected to the first fold we're folding away)
 	animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:180*factor]];
-	[animation setToValue:forwards? [NSNumber numberWithDouble:180*factor] : [NSNumber numberWithDouble:0]];
+	[animation setFromValue:forwards? @0.0 : @(180*factor)];
+	[animation setToValue:forwards? @(180*factor) : @0.0];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[secondJointLayer addAnimation:animation forKey:nil];
@@ -326,16 +326,16 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	{
 		// fold the bottom sleeve (3rd joint) away from us, so that net result is it lays flat from user's perspective
 		animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-		[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:-90*factor]];
-		[animation setToValue:forwards? [NSNumber numberWithDouble:-90*factor] : [NSNumber numberWithDouble:0]];
+		[animation setFromValue:forwards? @0.0 : @(-90*factor)];
+		[animation setToValue:forwards? @(-90*factor) : @0.0];
 		[animation setFillMode:kCAFillModeForwards];
 		[animation setRemovedOnCompletion:NO];
 		[bottomSleeve addAnimation:animation forKey:nil];
 		
 		// fold top sleeve towards us, so that net result is it lays flat from user's perspective
 		animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-		[animation setFromValue:forwards? [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:90*factor]];
-		[animation setToValue:forwards? [NSNumber numberWithDouble:90*factor] : [NSNumber numberWithDouble:0]];
+		[animation setFromValue:forwards? @0.0 : @(90*factor)];
+		[animation setToValue:forwards? @(90*factor) : @0.0];
 		[animation setFillMode:kCAFillModeForwards];
 		[animation setRemovedOnCompletion:NO];
 		[topSleeve addAnimation:animation forKey:nil];
@@ -356,17 +356,17 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 		if ((forwards && frame == frameCount) || (!forwards && frame == 0))
 			cosine = 0;
 		cosHeight = cosine * 2 * height; // range from 2*height to 0 along a cosine curve
-		[arrayHeight addObject:[NSNumber numberWithFloat:cosHeight]];
+		[arrayHeight addObject:@(cosHeight)];
 		
 		// fold panel shadow intensity is inversely proportional to its height
-		[arrayShadow addObject:[NSNumber numberWithFloat:((1-cosine) * shadowOpacity)]];
+		[arrayShadow addObject:@((1-cosine) * shadowOpacity)];
 		if (cubic)
 		{
 			sine = forwards? sin(mp_radians(90 * progress)) : cos(mp_radians(90 * progress));
 			if ((forwards && frame == 0) || (!forwards && frame == frameCount))
 				sine = 0;
 			// sleeve panel shadow intensity is inversely proportional to its height
-			[arrayCubicShadow addObject:[NSNumber numberWithFloat:((1-sine) * shadowOpacity)]];
+			[arrayCubicShadow addObject:@((1-sine) * shadowOpacity)];
 		}
 	}
 	
