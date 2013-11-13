@@ -110,7 +110,7 @@
 	}
 
 	[self setSourceView:src.view];
-	if ([src wantsFullScreenLayout])
+	if ([src wantsFullScreenLayout] && NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
 	{
 		// don't include the status bar height in the rect to fold
 		CGRect frame = src.view.frame;
@@ -122,6 +122,10 @@
 		frameViewRect.size.height -= statusBarViewRect.size.height;
 		[self setRect:frameViewRect];
 	}
+    else
+    {
+        [self setRect:src.view.bounds];
+    }
 }
 
 - (void)setPresentedController:(UIViewController *)presentedController;
