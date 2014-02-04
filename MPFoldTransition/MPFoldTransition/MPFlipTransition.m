@@ -343,24 +343,24 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	self.layerFrontShadow.frame = CGRectInset(self.layerFront.bounds, insets.left, insets.top);
 	self.layerFrontShadow.opacity = 0.0;
 	if (forwards)
-		self.layerFrontShadow.colors = [NSArray arrayWithObjects:(id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], (id)[self flipShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];
+		self.layerFrontShadow.colors = @[(id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], (id)[self flipShadowColor].CGColor, (id)[[UIColor clearColor] CGColor]];
 	else
-		self.layerFrontShadow.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[self flipShadowColor].CGColor, (id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], nil];
+		self.layerFrontShadow.colors = @[(id)[[UIColor clearColor] CGColor], (id)[self flipShadowColor].CGColor, (id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor]];
 	self.layerFrontShadow.startPoint = CGPointMake(vertical? 0.5 : forwards? 0 : 0.5, vertical? forwards? 0 : 0.5 : 0.5);
 	self.layerFrontShadow.endPoint = CGPointMake(vertical? 0.5 : forwards? 0.5 : 1, vertical? forwards? 0.5 : 1 : 0.5);
-	self.layerFrontShadow.locations = [NSArray arrayWithObjects:[NSNumber numberWithDouble:0], [NSNumber numberWithDouble:forwards? 0.1 : 0.9], [NSNumber numberWithDouble:1], nil];
+	self.layerFrontShadow.locations = @[@0.0, @(forwards? 0.1 : 0.9), @1.0];
 	
 	self.layerBackShadow = [CAGradientLayer layer];
 	[self.layerBack addSublayer:self.layerBackShadow];
 	self.layerBackShadow.frame = CGRectInset(self.layerBack.bounds, insets.left, insets.top);
 	self.layerBackShadow.opacity = [self flippingPageShadowOpacity];
 	if (forwards)
-		self.layerBackShadow.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[self flipShadowColor].CGColor, (id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], nil];
+		self.layerBackShadow.colors = @[(id)[[UIColor clearColor] CGColor], (id)[self flipShadowColor].CGColor, (id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor]];
 	else
-		self.layerBackShadow.colors = [NSArray arrayWithObjects:(id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], (id)[self flipShadowColor].CGColor, (id)[[UIColor clearColor] CGColor], nil];
+		self.layerBackShadow.colors = @[(id)[[[self flipShadowColor] colorWithAlphaComponent:0.5] CGColor], (id)[self flipShadowColor].CGColor, (id)[[UIColor clearColor] CGColor]];
 	self.layerBackShadow.startPoint = CGPointMake(vertical? 0.5 : forwards? 0.5 : 0, vertical? forwards? 0.5 : 0 : 0.5);
 	self.layerBackShadow.endPoint = CGPointMake(vertical? 0.5 : forwards? 1 : 0.5, vertical? forwards? 1 : 0.5 : 0.5);
-	self.layerBackShadow.locations = [NSArray arrayWithObjects:[NSNumber numberWithDouble:0], [NSNumber numberWithDouble:forwards? 0.9 : 0.1], [NSNumber numberWithDouble:1], nil];
+	self.layerBackShadow.locations = @[@0.0, @(forwards? 0.9 : 0.1), @1.0];
 	
 	if (!inward)
 	{
@@ -450,7 +450,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	
 	// Create a transaction
 	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:duration] forKey:kCATransactionAnimationDuration];
+	[CATransaction setValue:@(duration) forKey:kCATransactionAnimationDuration];
 	[CATransaction setValue:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn] forKey:kCATransactionAnimationTimingFunction];
 	[CATransaction setCompletionBlock:^{
 		// 2nd half of animation, once 1st half completes
@@ -464,8 +464,8 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	
 	// Flip front page from flat up to vertical
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation setFromValue:[NSNumber numberWithDouble:90 * factor * fromProgress]];
-	[animation setToValue:[NSNumber numberWithDouble:90*factor]];
+	[animation setFromValue:@(90 * factor * fromProgress)];
+	[animation setToValue:@(90*factor)];
 	[animation setFillMode:kCAFillModeForwards];
 	[animation setRemovedOnCompletion:NO];
 	[layer addAnimation:animation forKey:nil];
@@ -495,7 +495,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 			cosOpacity = cos(mp_radians(90 * progress)) * coveredPageShadowOpacity;
 			if (frame == frameCount)
 				cosOpacity = 0;
-			[arrayOpacity addObject:[NSNumber numberWithFloat:cosOpacity]];
+			[arrayOpacity addObject:@(cosOpacity)];
 		}
 		
 		CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
@@ -547,8 +547,8 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	
 	// Flip back page from vertical down to flat
 	CABasicAnimation* animation2 = [CABasicAnimation animationWithKeyPath:rotationKey];
-	[animation2 setFromValue:[NSNumber numberWithDouble:-90*factor*(1-fromProgress)]];
-	[animation2 setToValue:[NSNumber numberWithDouble:0]];
+	[animation2 setFromValue:@(-90*factor*(1-fromProgress))];
+	[animation2 setToValue:@0.0];
 	[animation2 setFillMode:kCAFillModeForwards];
 	[animation2 setRemovedOnCompletion:NO];
 	[layer addAnimation:animation2 forKey:nil];
@@ -559,7 +559,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 	// Lighten back page just slightly as we flip (just to give it a crease where it touches reveal page)
 	animation2 = [CABasicAnimation animationWithKeyPath:@"opacity"];
 	[animation2 setFromValue:[NSNumber numberWithDouble:[self flippingPageShadowOpacity] * (1-fromProgress)]];
-	[animation2 setToValue:[NSNumber numberWithDouble:0]];
+	[animation2 setToValue:@0.0];
 	[animation2 setFillMode:kCAFillModeForwards];
 	[animation2 setRemovedOnCompletion:NO];
 	[flippingShadow addAnimation:animation2 forKey:nil];
@@ -577,7 +577,7 @@ static inline double mp_radians (double degrees) {return degrees * M_PI/180;}
 			sinOpacity = (sin(mp_radians(90 * progress))* coveredPageShadowOpacity);
 			if (frame == 0)
 				sinOpacity = 0;
-			[arrayOpacity addObject:[NSNumber numberWithFloat:sinOpacity]];
+			[arrayOpacity addObject:@(sinOpacity)];
 		}
 		
 		CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
